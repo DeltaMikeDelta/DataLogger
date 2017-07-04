@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D3BCD7A8-8CBC-4E3A-AEA4-999767047FEF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>DatenLogger_PA17.My.MyApplication</StartupObject>
-    <RootNamespace>DatenLogger_PA17</RootNamespace>
-    <AssemblyName>DatenLogger PA17</AssemblyName>
+    <StartupObject>DatenLogger_PA21.My.MyApplication</StartupObject>
+    <RootNamespace>DatenLogger_PA21</RootNamespace>
+    <AssemblyName>DatenLogger PA21</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
@@ -37,7 +37,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>DatenLogger PA17.xml</DocumentationFile>
+    <DocumentationFile>DatenLogger PA21.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -48,7 +48,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>DatenLogger PA17.xml</DocumentationFile>
+    <DocumentationFile>DatenLogger PA21.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
