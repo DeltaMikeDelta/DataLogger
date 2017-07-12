@@ -9,13 +9,13 @@ Module DaveConS7
     Private daveSerial As libnodave.daveOSserialType
     Private daveConection As libnodave.daveConnection
     Private daveInterface As libnodave.daveInterface
-    Private connStatus As Boolean
-    Private pingcounter As Integer
-    Property pingTimeout As Integer
-    Private state As Integer
+    Private ConnStatus As Boolean
+    Private Pingcounter As Integer
+    Property PingTimeout As Integer
+    Private State As Integer
 
-    Private rack As Integer = 0
-    Private slot As Integer = 2
+    Private Rack As Integer = 0
+    Private Slot As Integer = 2
 
     Public Function SetMessageTextbox(Box As TextBox)
         textbox = Box
@@ -34,14 +34,14 @@ Module DaveConS7
     End Function
 
     Public Function GetConnStatus()
-        GetConnStatus = connStatus
+        GetConnStatus = ConnStatus
     End Function
 
     ''' <summary>
     ''' Allocates Interface for Ethernet Connection with given Port an IP.
     ''' </summary>
     ''' <returns>Integer Value of the established Socket</returns>
-    Private Function allocateInterface() As Integer
+    Private Function AllocateInterface() As Integer
         daveSerial.rfd = libnodave.openSocket(GetPort, GetIP) '(GetPort(), GetIP())
         daveSerial.wfd = daveSerial.rfd
         Return (daveSerial.rfd)
@@ -50,7 +50,7 @@ Module DaveConS7
     ''' <summary>
     ''' Defines Interface for Connection to PLC with Values set for Interface, Protokoll and transmission speed.
     ''' </summary>
-    Private Sub newInterface()
+    Private Sub NewInterface()
         daveInterface = New libnodave.daveInterface(daveSerial, "IF1", 0, libnodave.daveProtoISOTCP, libnodave.daveSpeed187k)
         daveInterface.setTimeout(1000)
     End Sub
@@ -59,8 +59,8 @@ Module DaveConS7
     ''' Defines Connection based on parameter for PLC as Rack, Slot and Interface.
     ''' </summary>
     ''' <returns>dave Connection Objekt</returns>
-    Private Function newConnection()
-        daveConection = New libnodave.daveConnection(daveInterface, 0, rack, slot)
+    Private Function NewConnection()
+        daveConection = New libnodave.daveConnection(daveInterface, 0, Rack, Slot)
         Return (daveConection)
     End Function
 
@@ -90,23 +90,23 @@ Module DaveConS7
     ''' <returns>Bollean connection status</returns>
     Public Function ConnectPLC()
         On Error GoTo error_PLC
-        connStatus = False
+        ConnStatus = False
         If AssertIP(ip) = -1 Then
             ShowMessage("IP is not valid or null!")
         Else
-            ConnectPLC = pingtest(ip)
+            ConnectPLC = Pingtest(ip)
             If ConnectPLC = 1 Then
                 ShowMessage("Trying to establish connection to Host.")
-                If allocateInterface() > 0 Then
-                    newInterface()
-                    state = daveInterface.initAdapter
-                    If state = 0 Then
-                        newConnection()
-                        state = daveConection.connectPLC
-                        If state = 0 Then
+                If AllocateInterface() > 0 Then
+                    NewInterface()
+                    State = daveInterface.initAdapter
+                    If State = 0 Then
+                        NewConnection()
+                        State = daveConection.connectPLC
+                        If State = 0 Then
                             ShowMessage("Connection established.")
-                            connStatus = True
-                            Return (connStatus)
+                            ConnStatus = True
+                            Return (ConnStatus)
                         End If
                     End If
                 End If
@@ -126,11 +126,11 @@ error_PLC:
     ''' </summary>
     ''' <param name="ipArg">Host IP Address as String</param>
     ''' <returns>Ping result as Boolean</returns>
-    Public Function pingtest(ipArg As String) As Integer
+    Public Function Pingtest(ipArg As String) As Integer
         Dim ethernetConnection As New Microsoft.VisualBasic.Devices.Network
         ' Verzögerung des Pingtest und des Verbindungsaufbaus
-        If pingcounter = pingTimeout Then ' 30 Ticks
-            pingcounter = 0
+        If Pingcounter = PingTimeout Then ' 30 Ticks
+            Pingcounter = 0
             If Not ethernetConnection.Ping(ipArg) Then
                 ShowMessage("Host with IP: " & ipArg.ToString & " can't be pinged!")
                 Return 0
@@ -138,7 +138,7 @@ error_PLC:
                 Return 1
             End If
         Else
-            pingcounter = pingcounter + 1
+            Pingcounter = Pingcounter + 1
             Return -1
         End If
     End Function
@@ -147,11 +147,11 @@ error_PLC:
     ''' Disconnect from PLC and resets allocated port.
     ''' </summary>
     ''' <returns>State as boolean</returns>
-    Public Function disconnectPLC()
-        If connStatus Then
+    Public Function DoDisconnectPLC()
+        If ConnStatus Then
             daveConection.disconnectPLC()       ' Trenne Verbindung
             daveInterface.disconnectAdapter()   ' Gebe reservierten Port frei
-            connStatus = False                  ' Setze Verbindungsstatus zurück
+            ConnStatus = False                  ' Setze Verbindungsstatus zurück
             ShowMessage("Verbindug zum PLC getrennt.")
             Return (True)
         End If
@@ -159,26 +159,26 @@ error_PLC:
         Return (True)
     End Function
 
-    Public Function setWatchDog(dbNr, byteStart, bitNr)
+    Public Function SetWatchDog(dbNr, byteStart, bitNr)
         Dim mybuf(1) As Byte
         Dim Adress As Integer
         Adress = byteStart * 8 + bitNr
-        setWatchDog = -1
-        If connStatus Then
+        SetWatchDog = -1
+        If ConnStatus Then
             mybuf(0) = 0
-            state = daveConection.writeBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
+            State = daveConection.writeBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
             Return 1
         End If
     End Function
 
-    Public Function getWatchDogBit(dbNr, byteStart, bitNr)
+    Public Function GetWatchDogBit(dbNr, byteStart, bitNr)
         Dim mybuf(1) As Byte
         Dim Adress As Integer
         Adress = byteStart * 8 + bitNr
-        If connStatus Then
+        If ConnStatus Then
             mybuf(0) = 0
-            state = daveConection.readBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
-            If state = 0 Then
+            State = daveConection.readBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
+            If State = 0 Then
                 Return daveConection.getS8
             Else
                 Return -1
@@ -195,14 +195,14 @@ error_PLC:
     ''' <param name="byteStart">Byteadress</param>
     ''' <param name="bitNr">Number of Bit within Byte</param>
     ''' <returns></returns>
-    Public Function getBit(dbNr, byteStart, bitNr)
+    Public Function GetBit(dbNr, byteStart, bitNr)
         Dim mybuf(1) As Byte
         Dim Adress As Integer
         Adress = byteStart * 8 + bitNr
-        If connStatus Then
+        If ConnStatus Then
             mybuf(0) = 0
-            state = daveConection.readBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
-            If state = 0 Then
+            State = daveConection.readBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
+            If State = 0 Then
                 Return daveConection.getS8
             Else
                 Return -1
@@ -218,12 +218,12 @@ error_PLC:
     ''' <param name="dbNr">Integer Value DB Number</param>
     ''' <param name="byteStart">Integer Value of Byte Startadress</param>
     ''' <returns>Byte Value read from DB</returns>
-    Public Function getByte(dbNr, byteStart) As Integer
+    Public Function GetByte(dbNr, byteStart) As Integer
         Dim buf(1) As Byte
-        getByte = 1
-        state = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 1, buf)
-        If state = 0 Then
-            getByte = daveConection.getS8
+        GetByte = 1
+        State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 1, buf)
+        If State = 0 Then
+            GetByte = daveConection.getS8
         End If
     End Function
 
@@ -234,20 +234,20 @@ error_PLC:
     ''' <param name="byteStart">Byte Start Adress</param>
     ''' <param name="length">Count of Bytes</param>
     ''' <returns></returns>
-    Public Function getBytes(dbNr As Integer, byteStart As Integer, length As Integer) As Byte()
+    Public Function GetBytes(dbNr As Integer, byteStart As Integer, length As Integer) As Byte()
         Dim buf(length) As Byte
-        'getBytes(0) = -1
-        state = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, length, buf)
-        If state = 0 Then
+        'GetBytes(0) = -1
+        State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, length, buf)
+        If State = 0 Then
             Return buf
         End If
     End Function
 
-    Public Function floatFromBuffer(pos As Integer) As Single
+    Public Function FloatFromBuffer(pos As Integer) As Single
         Return daveConection.getFloatAt(pos)
     End Function
 
-    Public Function floatFromBuffer(buf As Byte(), pos As Integer) As Single
+    Public Function FloatFromBuffer(buf As Byte(), pos As Integer) As Single
         Return libnodave.getFloatfrom(buf, pos)
     End Function
 
@@ -265,12 +265,12 @@ error_PLC:
     ''' <param name="dbNr">Integer Value DB Number</param>
     ''' <param name="byteStart">Integer Value of Byte Startadress</param>
     ''' <returns>Integer Value read from DB</returns>
-    Public Function getInteger(dbNr, byteStart) As Integer
+    Public Function GetInteger(dbNr, byteStart) As Integer
         Dim buf(2) As Byte
-        getInteger = 1
-        state = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 2, buf)
-        If state = 0 Then
-            getInteger = daveConection.getS16
+        GetInteger = 1
+        State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 2, buf)
+        If State = 0 Then
+            GetInteger = daveConection.getS16
         End If
     End Function
 
@@ -280,12 +280,12 @@ error_PLC:
     ''' <param name="dbNr">Integer Value DB Number</param>
     ''' <param name="byteStart">Integer Value of Byte Startadress</param>
     ''' <returns>DInteger Value read from DB</returns>
-    Public Function getDInteger(dbNr, byteStart) As Integer
+    Public Function GetDInteger(dbNr, byteStart) As Integer
         Dim buf(4) As Byte
-        getDInteger = 0
-        state = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 4, buf)
-        If state = 0 Then
-            getDInteger = daveConection.getS32
+        GetDInteger = 0
+        State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 4, buf)
+        If State = 0 Then
+            GetDInteger = daveConection.getS32
         End If
     End Function
 
@@ -297,17 +297,17 @@ error_PLC:
     ''' <param name="byteLength">Length of String in Bytes</param>
     ''' <param name="buffLength">Length of String</param>
     ''' <returns></returns>
-    Public Function getString(dbNr, byteStart, byteLength, buffLength) As String
+    Public Function GetString(dbNr, byteStart, byteLength, buffLength) As String
         Dim buf(buffLength) As Byte
-        getString = ""
+        GetString = ""
         Dim wert As String = ""
-        state = daveConection.readManyBytes(libnodave.daveDB, dbNr, byteStart, byteLength, buf)
-        If state = 0 Then
+        State = daveConection.readManyBytes(libnodave.daveDB, dbNr, byteStart, byteLength, buf)
+        If State = 0 Then
             wert = ""
             For i = 1 To buffLength
                 wert = wert & Chr(daveConection.getU8)
             Next
-            getString = wert
+            GetString = wert
         End If
     End Function
 
@@ -317,13 +317,13 @@ error_PLC:
     ''' <param name="dbNr">DB Nr</param>
     ''' <param name="byteStart">Byte start Adress</param>
     ''' <returns></returns>
-    Public Function getFloat(dbNr, byteStart)
+    Public Function GetFloat(dbNr, byteStart)
         Dim mybuf(4) As Byte
-        getFloat = -1.0
-        If connStatus Then
+        GetFloat = -1.0
+        If ConnStatus Then
             mybuf(0) = 0
-            state = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 4, mybuf)
-            If state = 0 Then
+            State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 4, mybuf)
+            If State = 0 Then
                 Return daveConection.getFloat
             End If
         End If
@@ -336,15 +336,15 @@ error_PLC:
     ''' <param name="byteStart">Byteadress</param>
     ''' <param name="bitNr">Number of Bit within Byte</param>
     ''' <returns></returns>
-    Public Function setBit(dbNr, byteStart, bitNr)
+    Public Function SetBit(dbNr, byteStart, bitNr)
         Dim mybuf(1) As Byte
         Dim Adress As Integer
         Adress = byteStart * 8 + bitNr
-        If connStatus Then
+        If ConnStatus Then
             mybuf(0) = 1
-            state = daveConection.writeBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
-            If state = 0 Then
-                Return state
+            State = daveConection.writeBits(libnodave.daveDB, dbNr, Adress, 1, mybuf)
+            If State = 0 Then
+                Return State
             Else
                 ShowMessage("Fehler beim Schreiben: Bit")
             End If
@@ -361,10 +361,10 @@ error_PLC:
     '''' <returns>Byte Value read from DB</returns>
     'Public Function SetByte(dbNr, byteStart) As Integer
     '    Dim buf(1) As Byte
-    '    getByte = 1
+    '    GetByte = 1
     '    state = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 1, buf)
     '    If state = 0 Then
-    '        getByte = daveConection.getS8
+    '        GetByte = daveConection.getS8
     '    End If
     'End Function
 
@@ -377,8 +377,8 @@ error_PLC:
     Public Function SetInteger(dbNr, byteStart, Value)
         Dim buf(2) As Byte
         buf(1) = 1
-        state = daveConection.writeBytes(libnodave.daveDB, dbNr, byteStart, 2, buf)
-        If state = 0 Then
+        State = daveConection.writeBytes(libnodave.daveDB, dbNr, byteStart, 2, buf)
+        If State = 0 Then
             ShowMessage("Fehler beim Schreiben")
         End If
     End Function
@@ -393,7 +393,7 @@ error_PLC:
     '''' <returns></returns>
     'Public Function SetString(dbNr, byteStart, byteLength, buffLength) As String
     '    Dim buf(buffLength) As Byte
-    '    getString = ""
+    '    GetString = ""
     '    Dim wert As String = ""
     '    state = daveConection.readManyBytes(libnodave.daveDB, dbNr, byteStart, byteLength, buf)
     '    If state = 0 Then
@@ -401,7 +401,7 @@ error_PLC:
     '        For i = 1 To buffLength
     '            wert = wert & Chr(daveConection.getU8)
     '        Next
-    '        getString = wert
+    '        GetString = wert
     '    End If
     'End Function
 
@@ -415,11 +415,11 @@ error_PLC:
     Public Function SetFloat(dbNr, byteStart, byteLength)
         Dim mybuf(4) As Byte
         '   mybuf(0) = -1.0
-        If connStatus Then
+        If ConnStatus Then
             mybuf(0) = 0
-            state = daveConection.writeBytes(libnodave.daveDB, dbNr, byteStart, byteLength, mybuf)
-            If state = 0 Then
-                ' Return daveConection.getFloat
+            State = daveConection.writeBytes(libnodave.daveDB, dbNr, byteStart, byteLength, mybuf)
+            If State = 0 Then
+                ' Return daveConection.GetFloat
             End If
         End If
     End Function

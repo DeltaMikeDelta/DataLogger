@@ -8,9 +8,9 @@ Imports System.Runtime.InteropServices
 
 ' Werte der Assemblyattribute überprüfen
 
-<Assembly: AssemblyTitle("DatenLogger PA17")>
+<Assembly: AssemblyTitle("DatenLogger PA21")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("Ingenieurbüro Tienken")>
 <Assembly: AssemblyProduct("DatenLogger PA17")>
 <Assembly: AssemblyCopyright("Copyright ©  2017")>
 <Assembly: AssemblyTrademark("")>

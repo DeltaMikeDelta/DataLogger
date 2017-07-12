@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 14 for Windows Desktop
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DatenLogger PA17", "DatenLogger PA17\DatenLogger PA17.vbproj", "{D3BCD7A8-8CBC-4E3A-AEA4-999767047FEF}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DatenLogger PA21", "DatenLogger PA17\DatenLogger PA21.vbproj", "{D3BCD7A8-8CBC-4E3A-AEA4-999767047FEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

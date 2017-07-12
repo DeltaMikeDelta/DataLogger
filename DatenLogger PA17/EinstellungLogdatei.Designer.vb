@@ -37,6 +37,7 @@ Partial Class EinstellungLogdatei
         Me.DateiPfad = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,9 +55,9 @@ Partial Class EinstellungLogdatei
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.Button3)
         Me.GroupBox2.Controls.Add(Me.DateiPfad)
-        Me.GroupBox2.Location = New System.Drawing.Point(9, 6)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 165)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(787, 217)
+        Me.GroupBox2.Size = New System.Drawing.Size(786, 134)
         Me.GroupBox2.TabIndex = 13
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "CSV Dateipfad"
@@ -107,12 +108,12 @@ Partial Class EinstellungLogdatei
         '
         'Dateiname
         '
-        Me.Dateiname.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.DatenLogger_PA17.My.MySettings.Default, "Log_Name", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.Dateiname.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.DatenLogger_PA21.My.MySettings.Default, "Log_Name", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Dateiname.Location = New System.Drawing.Point(378, 41)
         Me.Dateiname.Name = "Dateiname"
         Me.Dateiname.Size = New System.Drawing.Size(164, 20)
         Me.Dateiname.TabIndex = 20
-        Me.Dateiname.Text = Global.DatenLogger_PA17.My.MySettings.Default.Log_Name
+        Me.Dateiname.Text = Global.DatenLogger_PA21.My.MySettings.Default.Log_Name
         '
         'CheckDatum
         '
@@ -175,12 +176,12 @@ Partial Class EinstellungLogdatei
         '
         'DateiPfad
         '
-        Me.DateiPfad.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.DatenLogger_PA17.My.MySettings.Default, "CSVPfad", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.DateiPfad.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.DatenLogger_PA21.My.MySettings.Default, "CSVPfad", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.DateiPfad.Location = New System.Drawing.Point(15, 41)
         Me.DateiPfad.Name = "DateiPfad"
         Me.DateiPfad.Size = New System.Drawing.Size(222, 20)
         Me.DateiPfad.TabIndex = 9
-        Me.DateiPfad.Text = Global.DatenLogger_PA17.My.MySettings.Default.CSVPfad
+        Me.DateiPfad.Text = Global.DatenLogger_PA21.My.MySettings.Default.CSVPfad
         '
         'FolderBrowserDialog1
         '
@@ -189,18 +190,28 @@ Partial Class EinstellungLogdatei
         'Button2
         '
         Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(725, 226)
+        Me.Button2.Location = New System.Drawing.Point(946, 493)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(80, 24)
         Me.Button2.TabIndex = 14
         Me.Button2.Text = "Schließen"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(783, 136)
+        Me.GroupBox1.TabIndex = 15
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "GroupBox1"
+        '
         'EinstellungLogdatei
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(817, 262)
+        Me.ClientSize = New System.Drawing.Size(1038, 529)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Button2)
         Me.Name = "EinstellungLogdatei"
@@ -226,4 +237,5 @@ Partial Class EinstellungLogdatei
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents Button2 As Button
     Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents GroupBox1 As GroupBox
 End Class
