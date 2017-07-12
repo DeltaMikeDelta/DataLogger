@@ -37,8 +37,10 @@ Partial Class EinstellungLogdatei
         Me.DateiPfad = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Profil_Auswahl = New System.Windows.Forms.GroupBox()
+        Me.ProfilAuswahlBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox2.SuspendLayout()
+        Me.Profil_Auswahl.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
@@ -197,27 +199,37 @@ Partial Class EinstellungLogdatei
         Me.Button2.Text = "Schließen"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'Profil_Auswahl
         '
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(783, 136)
-        Me.GroupBox1.TabIndex = 15
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "GroupBox1"
+        Me.Profil_Auswahl.Controls.Add(Me.ProfilAuswahlBox)
+        Me.Profil_Auswahl.Location = New System.Drawing.Point(12, 12)
+        Me.Profil_Auswahl.Name = "Profil_Auswahl"
+        Me.Profil_Auswahl.Size = New System.Drawing.Size(783, 136)
+        Me.Profil_Auswahl.TabIndex = 15
+        Me.Profil_Auswahl.TabStop = False
+        Me.Profil_Auswahl.Text = "Profil"
+        '
+        'ProfilAuswahlBox
+        '
+        Me.ProfilAuswahlBox.FormattingEnabled = True
+        Me.ProfilAuswahlBox.Location = New System.Drawing.Point(15, 19)
+        Me.ProfilAuswahlBox.Name = "ProfilAuswahlBox"
+        Me.ProfilAuswahlBox.Size = New System.Drawing.Size(353, 21)
+        Me.ProfilAuswahlBox.TabIndex = 0
         '
         'EinstellungLogdatei
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1038, 529)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.Profil_Auswahl)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Button2)
         Me.Name = "EinstellungLogdatei"
         Me.Text = "EinstellungLogdatei"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.Profil_Auswahl.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -237,5 +249,6 @@ Partial Class EinstellungLogdatei
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents Button2 As Button
     Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Profil_Auswahl As GroupBox
+    Friend WithEvents ProfilAuswahlBox As ComboBox
 End Class

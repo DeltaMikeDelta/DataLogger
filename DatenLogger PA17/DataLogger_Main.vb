@@ -2,9 +2,10 @@
 
 Public Class DataLogger_Main
     Private Path As String = Nothing
-    Private Log_Path As String
-    Private absaugung_activ As Boolean
-    Private leck_activ As Boolean
+    Private Log_Path As String          'In das DataSet einfügen
+    Private absaugung_activ As Boolean  'Entfernen, wenn das mit dem Dataset funktioniert
+    Private leck_activ As Boolean       'Entfernen, wenn das mit dem Dataset funktioniert
+    Private DataSet As DataSet
 
     Private Sub Form_Load() Handles Me.Load
         If IsNullOrEmpty(XMLRead("Passwd", "ini.xml")) Then
@@ -30,6 +31,8 @@ Public Class DataLogger_Main
     Private Sub Form_Close() Handles MyBase.FormClosing
         Timer1.Stop()
         DaveConS7.DoDisconnectPLC()
+        DataSet.WriteXml()
+
     End Sub
 
     Private Sub SchließenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SchließenToolStripMenuItem.Click

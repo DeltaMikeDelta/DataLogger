@@ -57,7 +57,11 @@
         My.Settings.Log_Name = Dateiname.Text
     End Sub
 
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles Profil_Auswahl.Enter
+
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProfilAuswahlBox.SelectedIndexChanged
 
     End Sub
 End Class
