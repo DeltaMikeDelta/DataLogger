@@ -22,16 +22,20 @@ Module XMLMod
 
         Dim lNode = AttributeExists(Position, xmldoc)
 
-        If (IsNothing(lNode)) Then
-            If checkFile("DataSet.xml") Then
-            End If
+        Dim fileStream As FileStream
 
+        If (IsNothing(lNode.value)) Or Not checkFile(lNode.Value) Then
+            If Not checkFile(My.Settings.DataSet_File) Then
+                fileStream = createDataSetFile(My.Settings.DataSet_File)
+            Else
+                fileStream = New FileStream(My.Settings.DataSet_File, System.IO.FileMode.Open)
+            End If
         End If
 
-        Dim stream As New System.IO.FileStream(FileDataSet, System.IO.FileMode.OpenOrCreate)
+
 
         ' Create an XmlTextWriter with the fileStream.
-        Dim xmlWriter As New System.Xml.XmlTextWriter(stream, System.Text.Encoding.Unicode)
+        Dim xmlWriter As New System.Xml.XmlTextWriter(fileStream, System.Text.Encoding.Unicode)
 
         ' Write to the file with the WriteXml method.
         paramDataSet.WriteXml(xmlWriter)
@@ -50,5 +54,7 @@ Module XMLMod
         Return lNode
     End Function
 
-    Private Function 
+    Private Function createDataSetFile(Filename As String)
+        Return newFile(Filename)
+    End Function
 End Module

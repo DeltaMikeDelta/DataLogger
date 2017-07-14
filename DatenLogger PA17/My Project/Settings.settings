@@ -41,5 +41,8 @@
     <Setting Name="ReadCycle" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
+    <Setting Name="DataSet_File" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DataSet.xml</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

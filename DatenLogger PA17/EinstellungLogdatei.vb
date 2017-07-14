@@ -64,4 +64,8 @@
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProfilAuswahlBox.SelectedIndexChanged
 
     End Sub
+
+    Private Sub DateiPfad_TextChanged(sender As Object, e As EventArgs) Handles DateiPfad.TextChanged
+
+    End Sub
 End Class

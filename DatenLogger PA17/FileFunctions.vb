@@ -3,7 +3,7 @@ Imports System.IO
 
 Module FileFunctions
 
-    Public Function checkFile(path)
+    Public Function checkFile(path As String)
         Return File.Exists(path)
     End Function
 
@@ -23,4 +23,18 @@ Module FileFunctions
         End If
     End Function
 
+    Public Function newFile(Filename As String, type As String, Path As String)
+        Dim loc_Path = String.Concat(Path, Filename)
+        loc_Path = String.Concat(loc_Path, ".", type)
+        Return File.Create(loc_Path)
+    End Function
+
+    Public Function newFile(Filename As String, Path As String)
+        Dim loc_Path = String.Concat(Path, Filename)
+        Return File.Create(loc_Path)
+    End Function
+
+    Public Function newFile(Filename As String)
+        Return File.Create(Filename)
+    End Function
 End Module

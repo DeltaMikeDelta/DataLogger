@@ -209,6 +209,18 @@ Namespace My
                 Me("ReadCycle") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("DataSet.xml")>  _
+        Public Property DataSet_File() As String
+            Get
+                Return CType(Me("DataSet_File"),String)
+            End Get
+            Set
+                Me("DataSet_File") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
