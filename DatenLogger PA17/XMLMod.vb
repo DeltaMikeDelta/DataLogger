@@ -19,10 +19,9 @@ Module XMLMod
 
     Public Function XMLSave(Position As String, paramDataSet As DataSet, FileINI As String)
         Dim xmldoc As XElement = XElement.Load(FileINI)
-
         Dim lNode = AttributeExists(Position, xmldoc)
-
         Dim fileStream As FileStream
+
 
         If (IsNothing(lNode.value)) Or Not checkFile(lNode.Value) Then
             If Not checkFile(My.Settings.DataSet_File) Then
