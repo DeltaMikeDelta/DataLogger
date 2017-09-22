@@ -1,22 +1,41 @@
 ﻿Imports System.String
+Imports System.ComponentModel
+
 
 Public Class DataLogger_Main
+
+
     Private Path As String = Nothing
     Private Log_Path As String          'In das DataSet einfügen
     Private absaugung_activ As Boolean  'Entfernen, wenn das mit dem Dataset funktioniert
     Private leck_activ As Boolean       'Entfernen, wenn das mit dem Dataset funktioniert
     Private DataSet As DataSet
+    Private DataTable As DataTable
+    Private Worker As BackgroundWorker
 
+    ''' <summary>
+    ''' Aufruf 
+    ''' </summary>
     Private Sub Form_Load() Handles Me.Load
         If IsNullOrEmpty(XMLRead("Passwd", "ini.xml")) Then
             SetNewPassWD("ini.xml")
         End If
 
+        DataTable = loadIsolatedUser("ConfigSPSCon.xml")
+
+        If IsNothing(DataTable) Then
+            DataTable = New DataTable("Parameter")
+            DataTable.Columns.Add("Parameter", GetType(String))
+            DataTable.Columns.Add("Value", GetType(String))
+            DataTable.Rows.Add(row:={("Parameter") = "IP", ("Value") = My.Settings.IP.ToString})
+            SetIP(My.Settings.IP)
+            PingTimeout = My.Settings.ConnetionAttemps
+            Timer1.Interval = My.Settings.ReadCycle
+        End If
+
         'prepare Conection parameter and Properties
         DaveConS7.SetMessageTextbox(StatusBox)
-        SetIP(My.Settings.IP)
-        pingTimeout = My.Settings.ConnetionAttemps
-        Timer1.Interval = My.Settings.ReadCycle
+
         'Setze Einstellungen für die Bedienoberfläche
         Panel1.BackColor = Color.Empty
         VerbindungPauseToolStripMenuItem.Enabled = False
@@ -24,6 +43,7 @@ Public Class DataLogger_Main
         StoppUndTrennenToolStripMenuItem.Enabled = False
         EinstellungenToolStripMenuItem.Enabled = True
         StatusBox.BackColor = Color.White
+
         'Erzeuge Pfad für die Logdatei
         Path = BuildPath()
     End Sub
@@ -31,7 +51,9 @@ Public Class DataLogger_Main
     Private Sub Form_Close() Handles MyBase.FormClosing
         Timer1.Stop()
         DaveConS7.DoDisconnectPLC()
-        DataSet.WriteXml()
+
+        'Sichern der Einstellungen
+
 
     End Sub
 
@@ -174,11 +196,11 @@ Public Class DataLogger_Main
 
         byteBuff = GetBytes(242, 80, 88)
 
-        Write_Line(path, "PA17_Saugleistung_V1.0_PC_Log")
-        Write_Line(path, "char_0; Startdatum: ; " & Date.Now.Date.ToShortDateString & " ; Startzeit: ; " & Now.ToLocalTime.ToShortTimeString & " ;")
+        Write_Line(Path, "PA17_Saugleistung_V1.0_PC_Log")
+        Write_Line(Path, "char_0; Startdatum: ; " & Date.Now.Date.ToShortDateString & " ; Startzeit: ; " & Now.ToLocalTime.ToShortTimeString & " ;")
         Write_Line(Path, "char_1; Chargendateiname: ; " & My.Settings.Log_Name & " ;") '& path.Substring(10) & " ;")
-        Write_Line(path, "char_2; Benutzername: ; " & GetString(200, 38, 14, 14).Substring(2) & " ;")
-        Write_Line(path, "Kopf_0; Vorpumpe / Pumpenstand; Gasvolumen Stufe1; Soll Zeit Stufe1; Gasvolumen Stufe2; Saugleistung Stufe2; Gasvolumen Stufe3; Soll Zeit Stufe3; Gasvolumen Stufe4; Soll Zeit Stufe4; Gasvolumen Stufe5; Soll Zeit Stufe5;")
+        Write_Line(Path, "char_2; Benutzername: ; " & GetString(200, 38, 14, 14).Substring(2) & " ;")
+        Write_Line(Path, "Kopf_0; Vorpumpe / Pumpenstand; Gasvolumen Stufe1; Soll Zeit Stufe1; Gasvolumen Stufe2; Saugleistung Stufe2; Gasvolumen Stufe3; Soll Zeit Stufe3; Gasvolumen Stufe4; Soll Zeit Stufe4; Gasvolumen Stufe5; Soll Zeit Stufe5;")
         'Write_Line(path, "Kopf_1; " & GetBit(242, 0, 1).ToString & "; " & GetFloat(242, 80).ToString & "; " & GetFloat(242, 84).ToString & "; " & GetFloat(242, 100).ToString & "; " & GetFloat(242, 104).ToString & "; " & GetFloat(242, 120).ToString & "; " & GetFloat(242, 124).ToString & "; " & GetFloat(242, 140).ToString & "; " & GetFloat(242, 144).ToString & "; " & GetFloat(242, 160).ToString & "; " & GetFloat(242, 164).ToString & "; ")
         Write_Line(Path, "Kopf_1; " & GetBit(242, 0, 1).ToString & "; " & FloatFromBuffer(byteBuff, 0).ToString & "; " & FloatFromBuffer(byteBuff, 4).ToString & "; " & FloatFromBuffer(byteBuff, 20).ToString & "; " & FloatFromBuffer(byteBuff, 24).ToString & "; " & FloatFromBuffer(byteBuff, 40).ToString & "; " & FloatFromBuffer(byteBuff, 44).ToString & "; " & FloatFromBuffer(byteBuff, 60).ToString & "; " & FloatFromBuffer(byteBuff, 64).ToString & "; " & FloatFromBuffer(byteBuff, 80).ToString & "; " & FloatFromBuffer(byteBuff, 84).ToString & "; ")
         Write_Line(Path, "Proz_0; datum; uhrzeit; 162_Pirani; 261_Baratron; 263_Pirani; 181_Butterfly; 285_Gasregler5; Druck Stufe1; Saugleistung Stufe1; Druck Stufe2; Saugleistung Stufe2; Druck Stufe3; Saugleistung Stufe3; Druck Stufe4; Saugleistung Stufe4; Druck Stufe5; Saugleistung Stufe5;")

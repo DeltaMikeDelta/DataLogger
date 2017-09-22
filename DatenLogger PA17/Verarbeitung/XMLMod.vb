@@ -19,17 +19,27 @@ Module XMLMod
 
     Public Function XMLSave(Position As String, paramDataSet As DataSet, FileINI As String)
         Dim xmldoc As XElement = XElement.Load(FileINI)
-        Dim lNode = AttributeExists(Position, xmldoc)
+        Dim lNode = AttributeExists(Position, xmldoc) '
         Dim fileStream As FileStream
 
 
         If (IsNothing(lNode.value)) Or Not checkFile(lNode.Value) Then
             If Not checkFile(My.Settings.DataSet_File) Then
-                fileStream = createDataSetFile(My.Settings.DataSet_File)
-            Else
-                fileStream = New FileStream(My.Settings.DataSet_File, System.IO.FileMode.Open)
+                fileStream = newFile(My.Settings.DataSet_File)
             End If
+
+        Else
+            fileStream = New FileStream(My.Settings.DataSet_File, System.IO.FileMode.Open)
         End If
+
+        'If (IsNothing(lNode.value)) Then
+        '    If Not checkFile(My.Settings.DataSet_File) Then
+        '        fileStream = newFile(My.Settings.DataSet_File)
+        '    End If
+        '    Throw
+        'Else
+        '    fileStream = New FileStream(My.Settings.DataSet_File, System.IO.FileMode.Open)
+        'End If
 
 
 
@@ -42,18 +52,14 @@ Module XMLMod
 
     End Function
 
+
     Private Function AttributeExists(attribute As String, xmldoc As XElement)
         Dim lNode = (From e In xmldoc.Descendants Where e.Name = attribute)
         If IsNothing(lNode) Then
             xmldoc.Descendants.Nodes.Last.AddAfterSelf(attribute)
-
-            lNode = (From e In xmldoc.Descendants Where e.Name = attribute)
-            Return vbNull
+            Return (From e In xmldoc.Descendants Where e.Name = attribute)
         End If
         Return lNode
     End Function
 
-    Private Function createDataSetFile(Filename As String)
-        Return newFile(Filename)
-    End Function
 End Module
