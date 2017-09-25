@@ -3,19 +3,19 @@
   <Profiles />
   <Settings>
     <Setting Name="IP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">172.27.20.28</Value>
+      <Value Profile="(Default)">172.027.020.028</Value>
     </Setting>
     <Setting Name="CSVPfad" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="WD_DB" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="WD_Byte" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="WD_Bit" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="Select_LogName" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

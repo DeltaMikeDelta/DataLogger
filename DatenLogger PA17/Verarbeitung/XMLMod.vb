@@ -23,9 +23,9 @@ Module XMLMod
         Dim fileStream As FileStream
 
 
-        If (IsNothing(lNode.value)) Or Not checkFile(lNode.Value) Then
-            If Not checkFile(My.Settings.DataSet_File) Then
-                fileStream = newFile(My.Settings.DataSet_File)
+        If (IsNothing(lNode.value)) Or Not CheckFile(lNode.Value) Then
+            If Not CheckFile(My.Settings.DataSet_File) Then
+                fileStream = NewFile(My.Settings.DataSet_File)
             End If
 
         Else
