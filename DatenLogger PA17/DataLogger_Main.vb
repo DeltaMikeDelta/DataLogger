@@ -8,10 +8,10 @@ Public Class DataLogger_Main
     Private Log_Path As String          'In das DataSet einfügen
     Private absaugung_activ As Boolean  'Entfernen, wenn das mit dem Dataset funktioniert
     Private leck_activ As Boolean       'Entfernen, wenn das mit dem Dataset funktioniert
-    Private DataSet As DataSet
+    'Private DataSet As DataSet
     Private ConTable As DataTable
     Private DataTable As DataTable
-    Private Worker As BackgroundWorker
+    'Private Worker As BackgroundWorker
 
     ''' <summary>
     ''' Aufruf 
@@ -21,9 +21,9 @@ Public Class DataLogger_Main
             SetNewPassWD("ini.xml")
         End If
 
-        SetIP(My.Settings.IP)
-        PingTimeout = My.Settings.ConnetionAttemps
-        Timer1.Interval = My.Settings.ReadCycle
+        'SetIP(My.Settings.IP)
+        'PingTimeout = My.Settings.ConnetionAttemps
+        'Timer1.Interval = My.Settings.ReadCycle
 
         'prepare Conection parameter and Properties
         DaveConS7.SetMessageTextbox(StatusBox)
@@ -47,11 +47,11 @@ Public Class DataLogger_Main
             Dim row As DataRow
 
             ConTable = New DataTable("Parameter")
-                ConTable.Columns.Add("id", GetType(Int32))
-                ConTable.Columns.Add("Name", GetType(String))
-                ConTable.Columns.Add("IP", GetType(String))
-                ConTable.Columns.Add("Timeout", GetType(Int32))
-                ConTable.Columns.Add("Timer", GetType(Int32))
+            ConTable.Columns.Add("id", GetType(Int32))
+            ConTable.Columns.Add("Name", GetType(String))
+            ConTable.Columns.Add("IP", GetType(String))
+            ConTable.Columns.Add("Timeout", GetType(Int32))
+            ConTable.Columns.Add("Timer", GetType(Int32))
 
             row = ConTable.NewRow()
             row("id") = 1
@@ -62,7 +62,10 @@ Public Class DataLogger_Main
 
             ConTable.Rows.Add(row)
             'ConTable.Rows.Add({1, "SPS", My.Settings.IP, My.Settings.ConnetionAttemps, My.Settings.ReadCycle})
-
+        Else
+            'SetIP(My.Settings.IP)
+            'PingTimeout = My.Settings.ConnetionAttemps
+            'Timer1.Interval = My.Settings.ReadCycle
         End If
         'End Try
 

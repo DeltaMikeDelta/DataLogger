@@ -3,6 +3,26 @@
     Dim absaugung_Activ As Boolean
     Dim Log_path As String
 
+    Public Sub CallLog_Active(StatusBox As TextBox, Path As String, aktlog As TextBox, DB_Nr As Int32, Byte_pos As Int32, bit_Pos As Int32, Fkt As String)
+        Dim Log_Active As Boolean
+        Dim help As Boolean
+        help = GetBit(DB_Nr, Byte_pos, bit_Pos)
+        If Not help Then
+            Log_Active = False
+            StatusBox.Text = "Absaugen ist Aus"
+        Else
+            'absaugung_activ = True
+            If Not Log_Active Then
+                StatusBox.Text = "Log An, Logdatei Kopf"
+                Log_Kopf_Absaug(StatusBox, Path, aktlog)
+            Else
+                StatusBox.Text = String.Concat("Log An für ", Fkt)
+                Log_Absaug()
+            End If
+
+        End If
+
+    End Sub
 
     Public Sub Log_Absaugleistung(StatusBox As TextBox, Path As String, aktlog As TextBox)
         Dim help As Boolean

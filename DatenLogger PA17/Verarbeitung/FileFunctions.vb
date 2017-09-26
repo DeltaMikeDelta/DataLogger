@@ -76,10 +76,15 @@ Module FileFunctions
         Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing)
         Dim isoStream = New IsolatedStorageFileStream("ConfigurationSet.xml", FileMode.Append, isoFile)
 
-        dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-
-        isoStream.Close()
-        isoFile.Close()
+        Try
+            dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            isoStream.Close()
+            isoFile.Close()
+        End Try
     End Sub
 
     ''' <summary>
@@ -94,14 +99,19 @@ Module FileFunctions
         Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing)
         Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
 
-        dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-
-        isoStream.Close()
-        isoFile.Close()
+        Try
+            dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            isoStream.Close()
+            isoFile.Close()
+        End Try
     End Sub
 
     ''' <summary>
-    ''' Save a DataTable of Data to User Filesystem
+    ''' Save a DataTable of Data to User Filesystem as XML
     ''' </summary>
     ''' <param name="dtab">DataTabele to save</param>
     Public Sub SaveIsolatedUser(dtab As DataTable)
@@ -121,7 +131,7 @@ Module FileFunctions
     End Sub
 
     ''' <summary>
-    ''' Save a DataTable in User Filesystem with unique Filename
+    ''' Save a DataTable in User Filesystem with unique Filename as XML
     ''' </summary>
     ''' <param name="dtab">Datatable</param>
     ''' <param name="Filename">Filename</param>
@@ -131,10 +141,16 @@ Module FileFunctions
         Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
         Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
 
-        dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+        Try
+            dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            isoStream.Close()
+            isoFile.Close()
+        End Try
 
-        isoStream.Close()
-        isoFile.Close()
     End Sub
 
     ''' <summary>
