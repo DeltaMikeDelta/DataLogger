@@ -105,13 +105,19 @@ Module FileFunctions
     ''' </summary>
     ''' <param name="dtab">DataTabele to save</param>
     Public Sub SaveIsolatedUser(dtab As DataTable)
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Application, Nothing)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
         Dim isoStream = New IsolatedStorageFileStream("ConfigurationTab.xml", FileMode.Append, isoFile)
 
-        dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+        Try
+            dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            isoStream.Close()
+            isoFile.Close()
+        End Try
 
-        isoStream.Close()
-        isoFile.Close()
     End Sub
 
     ''' <summary>
@@ -122,7 +128,7 @@ Module FileFunctions
     Public Sub SaveIsolatedUser(dtab As DataTable, Filename As String)
         Filename = String.Concat(Filename, ".xml")
 
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
         Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
 
         dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
@@ -136,20 +142,25 @@ Module FileFunctions
     ''' </summary>
     ''' <param name="Filename">Name of Configurationfile</param>
     ''' <returns>Returns Datatable or Messagebox on Error</returns>
-    Public Function LoadIsolatedUser(Filename As String)
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing)
+    Public Function LoadTableIsolatedUser(Filename As String)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
         Dim isoStream
         Dim dataTable = New DataTable
 
         Try
             isoStream = New IsolatedStorageFileStream(Filename, FileMode.Open, isoFile)
-            Return dataTable.ReadXml(isoStream)
+            dataTable.ReadXml(isoStream)
             isoStream.Close()
+            isoFile.Close()
+            Return dataTable
         Catch ex As Exception
-            Return MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            'isoStream.Close()
+            isoFile.Close()
+            Return Nothing
         End Try
 
-        isoFile.Close()
+
     End Function
 
 End Module

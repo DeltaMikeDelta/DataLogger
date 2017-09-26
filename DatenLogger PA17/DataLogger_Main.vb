@@ -21,29 +21,9 @@ Public Class DataLogger_Main
             SetNewPassWD("ini.xml")
         End If
 
-        ConTable = loadIsolatedUser("ConfigSPSCon.xml")
-
-        If IsNothing(ConTable) Then
-            'DataSet = New DataSet
-            Dim row As DataRow
-
-            ConTable = New DataTable("Parameter")
-            ConTable.Columns.Add("id", GetType(Int32))
-            ConTable.Columns.Add("Name", GetType(String))
-            ConTable.Columns.Add("IP", GetType(String))
-            ConTable.Columns.Add("Timeout", GetType(Int32))
-            ConTable.Columns.Add("Timer", GetType(Int32))
-
-            row = ConTable.NewRow()
-            row("Parameter") = "IP"
-            row("Value") = My.Settings.IP
-
-            'ConTable.Rows.Add(row)
-            ConTable.Rows.Add({1, "SPS", My.Settings.IP, My.Settings.ConnetionAttemps, My.Settings.ReadCycle})
-            SetIP(My.Settings.IP)
-            PingTimeout = My.Settings.ConnetionAttemps
-            Timer1.Interval = My.Settings.ReadCycle
-        End If
+        SetIP(My.Settings.IP)
+        PingTimeout = My.Settings.ConnetionAttemps
+        Timer1.Interval = My.Settings.ReadCycle
 
         'prepare Conection parameter and Properties
         DaveConS7.SetMessageTextbox(StatusBox)
@@ -58,6 +38,35 @@ Public Class DataLogger_Main
 
         'Erzeuge Pfad für die Logdatei
         Path = BuildPath()
+
+        'Try
+        ConTable = LoadTableIsolatedUser("ConfigurationTab.xml")
+        'Catch ex As Exception
+        If IsNothing(ConTable) Then
+            'DataSet = New DataSet
+            Dim row As DataRow
+
+            ConTable = New DataTable("Parameter")
+                ConTable.Columns.Add("id", GetType(Int32))
+                ConTable.Columns.Add("Name", GetType(String))
+                ConTable.Columns.Add("IP", GetType(String))
+                ConTable.Columns.Add("Timeout", GetType(Int32))
+                ConTable.Columns.Add("Timer", GetType(Int32))
+
+            row = ConTable.NewRow()
+            row("id") = 1
+            row("Name") = "SPS"
+            row("IP") = My.Settings.IP
+            row("Timeout") = My.Settings.ConnetionAttemps
+            row("Timer") = My.Settings.ReadCycle
+
+            ConTable.Rows.Add(row)
+            'ConTable.Rows.Add({1, "SPS", My.Settings.IP, My.Settings.ConnetionAttemps, My.Settings.ReadCycle})
+
+        End If
+        'End Try
+
+
     End Sub
 
     Private Sub Form_Close() Handles MyBase.FormClosing
