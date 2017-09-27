@@ -81,7 +81,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>LOG_ico.ico</ApplicationIcon>
+    <ApplicationIcon>Adds\LOG_ico.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -116,26 +116,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Connections.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Connections.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Connections.vb">
+      <DependentUpon>Connections.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Verarbeitung\LogWriter.vb" />
     <Compile Include="Verarbeitung\CSVExport.vb" />
-    <Compile Include="DataLogger_Main.vb">
+    <Compile Include="Forms\DataLogger_Main.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataLogger_Main.Designer.vb">
+    <Compile Include="Forms\DataLogger_Main.Designer.vb">
       <DependentUpon>DataLogger_Main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DaveConS7.vb" />
-    <Compile Include="EinstellungenVerbindung.Designer.vb">
+    <Compile Include="Verbindung\DaveConS7.vb" />
+    <Compile Include="Forms\EinstellungenVerbindung.Designer.vb">
       <DependentUpon>EinstellungenVerbindung.vb</DependentUpon>
     </Compile>
-    <Compile Include="EinstellungenVerbindung.vb">
+    <Compile Include="Forms\EinstellungenVerbindung.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EinstellungLogdatei.Designer.vb">
+    <Compile Include="Forms\EinstellungLogdatei.Designer.vb">
       <DependentUpon>EinstellungLogdatei.vb</DependentUpon>
     </Compile>
-    <Compile Include="EinstellungLogdatei.vb">
+    <Compile Include="Forms\EinstellungLogdatei.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Verarbeitung\FileFunctions.vb" />
@@ -158,13 +166,13 @@
     <Compile Include="Verarbeitung\XMLMod.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataLogger_Main.resx">
+    <EmbeddedResource Include="Forms\DataLogger_Main.resx">
       <DependentUpon>DataLogger_Main.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EinstellungenVerbindung.resx">
+    <EmbeddedResource Include="Forms\EinstellungenVerbindung.resx">
       <DependentUpon>EinstellungenVerbindung.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EinstellungLogdatei.resx">
+    <EmbeddedResource Include="Forms\EinstellungLogdatei.resx">
       <DependentUpon>EinstellungLogdatei.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -175,18 +183,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DatenLogger PA17_TemporaryKey.pfx" />
+    <None Include="Adds\DatenLogger PA17_TemporaryKey.pfx" />
+    <None Include="Connections.xsc">
+      <DependentUpon>Connections.xsd</DependentUpon>
+    </None>
+    <None Include="Connections.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Connections.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Connections.xss">
+      <DependentUpon>Connections.xsd</DependentUpon>
+    </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\DataSources\DataLogger_Main.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="Adds\App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -196,13 +216,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="INI.xml">
+    <Content Include="Adds\INI.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="LOG_ico.ico" />
+    <Content Include="Adds\LOG_ico.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PublishFile Include="INI.xml">
+    <PublishFile Include="Adds\INI.xml">
       <Visible>False</Visible>
       <Group>
       </Group>
@@ -213,9 +233,7 @@
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Anwendung\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

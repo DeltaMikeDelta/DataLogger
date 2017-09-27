@@ -73,7 +73,7 @@ Module FileFunctions
     ''' </summary>
     ''' <param name="dset">Dataset of Parameter</param>
     Public Sub SaveIsolatedUser(dset As DataSet)
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
         Dim isoStream = New IsolatedStorageFileStream("ConfigurationSet.xml", FileMode.Append, isoFile)
 
         Try
@@ -81,8 +81,8 @@ Module FileFunctions
             isoStream.Close()
             isoFile.Close()
         Catch ex As Exception
-            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            isoStream.Close()
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            'isoStream.Close()
             isoFile.Close()
         End Try
     End Sub
@@ -96,7 +96,7 @@ Module FileFunctions
     Public Sub SaveIsolatedUser(dset As DataSet, Filename As String)
         Filename = String.Concat(Filename, ".xml")
 
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
         Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
 
         Try
@@ -104,8 +104,8 @@ Module FileFunctions
             isoStream.Close()
             isoFile.Close()
         Catch ex As Exception
-            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            isoStream.Close()
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            'isoStream.Close()
             isoFile.Close()
         End Try
     End Sub
@@ -123,7 +123,7 @@ Module FileFunctions
             isoStream.Close()
             isoFile.Close()
         Catch ex As Exception
-            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             isoStream.Close()
             isoFile.Close()
         End Try
@@ -146,8 +146,8 @@ Module FileFunctions
             isoStream.Close()
             isoFile.Close()
         Catch ex As Exception
-            MessageBox.Show("Fehler", "Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            isoStream.Close()
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            'isoStream.Close()
             isoFile.Close()
         End Try
 
@@ -169,6 +169,27 @@ Module FileFunctions
             isoStream.Close()
             isoFile.Close()
             Return dataTable
+        Catch ex As Exception
+            MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            'isoStream.Close()
+            isoFile.Close()
+            Return Nothing
+        End Try
+
+
+    End Function
+
+    Public Function LoadSetIsolatedUser(Filename As String)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
+        Dim isoStream
+        Dim dataSet = New DataSet
+
+        Try
+            isoStream = New IsolatedStorageFileStream(Filename, FileMode.Open, isoFile)
+            dataSet.ReadXml(isoStream)
+            isoStream.Close()
+            isoFile.Close()
+            Return dataSet
         Catch ex As Exception
             MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             'isoStream.Close()

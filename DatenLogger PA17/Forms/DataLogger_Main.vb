@@ -8,14 +8,12 @@ Public Class DataLogger_Main
     Private Log_Path As String          'In das DataSet einfügen
     Private absaugung_activ As Boolean  'Entfernen, wenn das mit dem Dataset funktioniert
     Private leck_activ As Boolean       'Entfernen, wenn das mit dem Dataset funktioniert
-    'Private DataSet As DataSet
+    Private ConnectionSet As DataSet
     Private ConTable As DataTable
-    Private DataTable As DataTable
+    Private ConfigsetName As String = "ConfigurationSet"
+    'Private DataTable As DataTable
     'Private Worker As BackgroundWorker
 
-    ''' <summary>
-    ''' Aufruf 
-    ''' </summary>
     Private Sub Form_Load() Handles Me.Load
         If IsNullOrEmpty(XMLRead("Passwd", "ini.xml")) Then
             SetNewPassWD("ini.xml")
@@ -63,12 +61,54 @@ Public Class DataLogger_Main
             ConTable.Rows.Add(row)
             'ConTable.Rows.Add({1, "SPS", My.Settings.IP, My.Settings.ConnetionAttemps, My.Settings.ReadCycle})
         Else
-            'SetIP(My.Settings.IP)
-            'PingTimeout = My.Settings.ConnetionAttemps
-            'Timer1.Interval = My.Settings.ReadCycle
+            SetIP(ConTable.Rows("id" = 1).Item("IP"))
+            PingTimeout = ConTable.Rows("id" = 1).Item("Timeout")
+            Timer1.Interval = ConTable.Rows("id" = 1).Item("Timer")
         End If
         'End Try
 
+        ConnectionSet = LoadSetIsolatedUser(String.Concat(ConfigsetName, ".xml"))
+        'Catch ex As Exception
+        If IsNothing(ConnectionSet) Then
+            'DataSet = New DataSet
+            Dim row As DataRow
+
+            ConnectionSet = Connections1
+            row = Connections1.SPS.NewSPSRow()
+
+            'ConTable.Columns.Add("id", GetType(Int32))
+            'ConTable.Columns.Add("Name", GetType(String))
+            'ConTable.Columns.Add("IP", GetType(String))
+            'ConTable.Columns.Add("Timeout", GetType(Int32))
+            'ConTable.Columns.Add("Timer", GetType(Int32))
+
+            'row = ConTable.NewRow()
+            'row("id") = 1
+            row("SPS_Name") = "SPS"
+            row("Connection_Type") = "S7-300"
+            'row("IP") = My.Settings.IP
+            'row("Timeout") = My.Settings.ConnetionAttemps
+            'row("Timer") = My.Settings.ReadCycle
+
+            Connections1.SPS.Rows.Add(row)
+            'ConTable.Rows.Add({1, "SPS", My.Settings.IP, My.Settings.ConnetionAttemps, My.Settings.ReadCycle})
+
+            row = Connections1.SPS_Parameter.NewSPS_ParameterRow()
+            row("IP") = ConTable.Rows("id" = 1).Item("IP")
+            row("Timeout") = ConTable.Rows("id" = 1).Item("Timeout")
+            row("Timer") = ConTable.Rows("id" = 1).Item("Timer")
+            row("Watchdog_DB") = My.Settings.WD_DB
+            row("Watchdog_Byte") = My.Settings.WD_Byte
+            row("Watchdog_Bit") = My.Settings.WD_Bit
+
+            Connections1.SPS_Parameter.Rows.Add(row)
+
+        Else
+            Connections1 = ConnectionSet
+            'SetIP(ConTable.Rows("id" = 1).Item("IP"))
+            'PingTimeout = ConTable.Rows("id" = 1).Item("Timeout")
+            'Timer1.Interval = ConTable.Rows("id" = 1).Item("Timer")
+        End If
 
     End Sub
 
@@ -79,7 +119,8 @@ Public Class DataLogger_Main
         'Sichern der Einstellungen
         SaveIsolatedUser(ConTable)
 
-
+        Connections1 = ConnectionSet
+        SaveIsolatedUser(ConnectionSet, ConfigsetName)
     End Sub
 
     Private Sub SchließenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SchließenToolStripMenuItem.Click

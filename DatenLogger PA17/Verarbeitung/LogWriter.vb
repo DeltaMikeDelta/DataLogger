@@ -58,7 +58,7 @@
 
         byteBuff = GetBytes(242, 80, 88)
 
-        Write_Line(Path, "PA17_Saugleistung_V1.0_PC_Log")
+        Write_Line(Path, "PA21_Saugleistung_V1.0_PC_Log")
         Write_Line(Path, "char_0; Startdatum: ; " & Date.Now.Date.ToShortDateString & " ; Startzeit: ; " & Now.ToLocalTime.ToShortTimeString & " ;")
         Write_Line(Path, "char_1; Chargendateiname: ; " & My.Settings.Log_Name & " ;") '& path.Substring(10) & " ;")
         Write_Line(Path, "char_2; Benutzername: ; " & GetString(200, 38, 14, 14).Substring(2) & " ;")

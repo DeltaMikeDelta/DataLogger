@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DataLogger_Main
     Inherits System.Windows.Forms.Form
 
     'Das Formular überschreibt den Löschvorgang, um die Komponentenliste zu bereinigen.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class DataLogger_Main
     'Hinweis: Die folgende Prozedur ist für den Windows Form-Designer erforderlich.
     'Das Bearbeiten ist mit dem Windows Form-Designer möglich.  
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -41,7 +41,9 @@ Partial Class DataLogger_Main
         Me.StatusBox = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.AktLog = New System.Windows.Forms.TextBox()
+        Me.Connections1 = New DatenLogger_PA21.Connections()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.Connections1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -177,6 +179,11 @@ Partial Class DataLogger_Main
         Me.AktLog.Size = New System.Drawing.Size(145, 20)
         Me.AktLog.TabIndex = 13
         '
+        'Connections1
+        '
+        Me.Connections1.DataSetName = "Connections"
+        Me.Connections1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'DataLogger_Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -197,6 +204,7 @@ Partial Class DataLogger_Main
         Me.Text = "DataLogger"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.Connections1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -220,4 +228,5 @@ Partial Class DataLogger_Main
     Friend WithEvents StatusBox As TextBox
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents AktLog As TextBox
+    Friend WithEvents Connections1 As Connections
 End Class

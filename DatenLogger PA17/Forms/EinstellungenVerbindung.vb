@@ -71,7 +71,7 @@
         If IsNumericInteger(Watchdog_DB_Nr.Text) Then
             My.Settings.WD_DB = CInt(Watchdog_DB_Nr.Text)
         Else
-            showTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", Watchdog_DB_Nr, Watchdog_DB_Nr.Location.X, Watchdog_DB_Nr.Location.Y, 5000)
+            ShowTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", Watchdog_DB_Nr, Watchdog_DB_Nr.Location.X, Watchdog_DB_Nr.Location.Y, 5000)
             Watchdog_DB_Nr.Text = My.Settings.WD_DB
         End If
 
@@ -81,7 +81,7 @@
         If IsNumericInteger(Watchdog_Byte.Text) Then
             My.Settings.WD_Byte = CInt(Watchdog_Byte.Text)
         Else
-            showTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", Watchdog_Byte, Watchdog_Byte.Location.X, Watchdog_Byte.Location.Y, 5000)
+            ShowTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", Watchdog_Byte, Watchdog_Byte.Location.X, Watchdog_Byte.Location.Y, 5000)
             Watchdog_Byte.Text = My.Settings.WD_Byte
         End If
     End Sub
@@ -90,7 +90,7 @@
         If IsNumericInteger(Watchdog_Bit.Text) Then
             My.Settings.WD_Bit = CInt(Watchdog_Bit.Text)
         Else
-            showTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", Watchdog_Bit, Watchdog_Bit.Location.X, Watchdog_Bit.Location.Y, 5000)
+            ShowTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", Watchdog_Bit, Watchdog_Bit.Location.X, Watchdog_Bit.Location.Y, 5000)
             Watchdog_Bit.Text = My.Settings.WD_Bit
         End If
     End Sub
@@ -127,14 +127,21 @@
         If IsNumericInteger(element.Text) Then
             setting = CInt(element.Text)
         Else
-            showTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", element, element.Location.X, element.Location.Y, 5000)
+            ShowTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", element, element.Location.X, element.Location.Y, 5000)
             element.Text = setting
         End If
     End Sub
 
-    Private Sub showTooltip(Tolltipp As ToolTip, titel As String, text As String, fielt As IWin32Window, x As Integer, y As Integer, duration As Integer)
+    Private Sub ShowTooltip(Tolltipp As ToolTip, titel As String, text As String, fielt As IWin32Window, x As Integer, y As Integer, duration As Integer)
         Tolltipp.ToolTipTitle = titel
         Tolltipp.Show(text, fielt, x, y, duration)
     End Sub
 
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles LoadSPS.Click
+
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+
+    End Sub
 End Class
