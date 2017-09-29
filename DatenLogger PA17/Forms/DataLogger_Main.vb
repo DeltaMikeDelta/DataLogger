@@ -15,8 +15,8 @@ Public Class DataLogger_Main
     'Private Worker As BackgroundWorker
 
     Private Sub Form_Load() Handles Me.Load
-        If IsNullOrEmpty(XMLRead("Passwd", "ini.xml")) Then
-            SetNewPassWD("ini.xml")
+        If IsNullOrEmpty(XMLRead("Passwd", "Adds\ini.xml")) Then
+            SetNewPassWD("Adds\ini.xml")
         End If
 
         'SetIP(My.Settings.IP)
@@ -60,6 +60,10 @@ Public Class DataLogger_Main
 
             ConTable.Rows.Add(row)
             'ConTable.Rows.Add({1, "SPS", My.Settings.IP, My.Settings.ConnetionAttemps, My.Settings.ReadCycle})
+            MessageBox.Show(ConTable.Rows(1).Item("IP").ToString)
+            SetIP(ConTable.Rows(1).Item("IP").ToString) 'SetIP(ConTable.Rows("id" = 1).Item("IP"))
+            PingTimeout = ConTable.Rows(1).Item("Timeout")
+            Timer1.Interval = ConTable.Rows(1).Item("Timer")
         Else
             SetIP(ConTable.Rows("id" = 1).Item("IP"))
             PingTimeout = ConTable.Rows("id" = 1).Item("Timeout")
@@ -91,9 +95,13 @@ Public Class DataLogger_Main
             'row("Timer") = My.Settings.ReadCycle
 
             Connections1.SPS.Rows.Add(row)
+            Connections1.AcceptChanges()
+
             'ConTable.Rows.Add({1, "SPS", My.Settings.IP, My.Settings.ConnetionAttemps, My.Settings.ReadCycle})
 
             row = Connections1.SPS_Parameter.NewSPS_ParameterRow()
+            row("Name") = Connections1.SPS.Rows("id" = 0).Item("SPS_Name")
+            MessageBox.Show(Connections1.SPS.Rows("id" = 0).Item("SPS_Name"))
             row("IP") = ConTable.Rows("id" = 1).Item("IP")
             row("Timeout") = ConTable.Rows("id" = 1).Item("Timeout")
             row("Timer") = ConTable.Rows("id" = 1).Item("Timer")
