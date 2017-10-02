@@ -4,7 +4,7 @@
 
     Private Sub Einstellungen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If CheckPassWd(InputBox("Geben Sie das Passwort ein:", "Passwortabfrage"), "ini.xml") Then
+        If CheckPassWd(InputBox("Geben Sie das Passwort ein:", "Passwortabfrage"), My.Forms.DataLogger_Main.Init_Path) Then
             'MaskedIPBox.Text = My.Settings.IP
             MaskedIPBox.ValidatingType = GetType(String)
             TextBox1.Text = "Aktuelle IP: " & GetIP()
@@ -13,6 +13,7 @@
             Watchdog_Bit.Text = My.Settings.WD_Bit.ToString
             ReadCyc.Text = My.Settings.ReadCycle.ToString
             ConAttempts.Text = My.Settings.ConnetionAttemps.ToString
+            Connections = My.Forms.DataLogger_Main.Connections1
 
             Me.Location = Owner.Location
             Owner.Enabled = False
@@ -21,6 +22,7 @@
             Button2_Click(Me, EventArgs.Empty)
         End If
     End Sub
+
 
     Private Sub MaskedTextBox1_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles MaskedIPBox.MaskInputRejected
         ' Button1.Enabled = False

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="Connections" targetNamespace="http://tempuri.org/Connections.xsd" xmlns:mstns="http://tempuri.org/Connections.xsd" xmlns="http://tempuri.org/Connections.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="SPSConnections" targetNamespace="http://tempuri.org/Connections.xsd" xmlns:mstns="http://tempuri.org/Connections.xsd" xmlns="http://tempuri.org/Connections.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -9,10 +9,10 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="Connections" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Connections" msprop:Generator_UserDSName="Connections">
+  <xs:element name="SPSConnections" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="SPSConnections" msprop:Generator_UserDSName="SPSConnections">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SPS" msprop:Generator_TableClassName="SPSDataTable" msprop:Generator_TableVarName="tableSPS" msprop:Generator_TablePropName="SPS" msprop:Generator_RowDeletingName="SPSRowDeleting" msprop:Generator_RowChangingName="SPSRowChanging" msprop:Generator_RowEvHandlerName="SPSRowChangeEventHandler" msprop:Generator_RowDeletedName="SPSRowDeleted" msprop:Generator_UserTableName="SPS" msprop:Generator_RowChangedName="SPSRowChanged" msprop:Generator_RowEvArgName="SPSRowChangeEvent" msprop:Generator_RowClassName="SPSRow">
+        <xs:element name="SPS" msprop:Generator_TableClassName="SPSDataTable" msprop:Generator_TableVarName="tableSPS" msprop:Generator_RowChangedName="SPSRowChanged" msprop:Generator_TablePropName="SPS" msprop:Generator_RowDeletingName="SPSRowDeleting" msprop:Generator_RowChangingName="SPSRowChanging" msprop:Generator_RowEvHandlerName="SPSRowChangeEventHandler" msprop:Generator_RowDeletedName="SPSRowDeleted" msprop:Generator_RowClassName="SPSRow" msprop:Generator_UserTableName="SPS" msprop:Generator_RowEvArgName="SPSRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -21,7 +21,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SPS_Parameter" msprop:Generator_TableClassName="SPS_ParameterDataTable" msprop:Generator_TableVarName="tableSPS_Parameter" msprop:Generator_TablePropName="SPS_Parameter" msprop:Generator_RowDeletingName="SPS_ParameterRowDeleting" msprop:Generator_RowChangingName="SPS_ParameterRowChanging" msprop:Generator_RowEvHandlerName="SPS_ParameterRowChangeEventHandler" msprop:Generator_RowDeletedName="SPS_ParameterRowDeleted" msprop:Generator_UserTableName="SPS_Parameter" msprop:Generator_RowChangedName="SPS_ParameterRowChanged" msprop:Generator_RowEvArgName="SPS_ParameterRowChangeEvent" msprop:Generator_RowClassName="SPS_ParameterRow">
+        <xs:element name="SPS_Parameter" msprop:Generator_TableClassName="SPS_ParameterDataTable" msprop:Generator_TableVarName="tableSPS_Parameter" msprop:Generator_RowChangedName="SPS_ParameterRowChanged" msprop:Generator_TablePropName="SPS_Parameter" msprop:Generator_RowDeletingName="SPS_ParameterRowDeleting" msprop:Generator_RowChangingName="SPS_ParameterRowChanging" msprop:Generator_RowEvHandlerName="SPS_ParameterRowChangeEventHandler" msprop:Generator_RowDeletedName="SPS_ParameterRowDeleted" msprop:Generator_RowClassName="SPS_ParameterRow" msprop:Generator_UserTableName="SPS_Parameter" msprop:Generator_RowEvArgName="SPS_ParameterRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -35,7 +35,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Data_Header" msprop:Generator_TableClassName="Data_HeaderDataTable" msprop:Generator_TableVarName="tableData_Header" msprop:Generator_TablePropName="Data_Header" msprop:Generator_RowDeletingName="Data_HeaderRowDeleting" msprop:Generator_RowChangingName="Data_HeaderRowChanging" msprop:Generator_RowEvHandlerName="Data_HeaderRowChangeEventHandler" msprop:Generator_RowDeletedName="Data_HeaderRowDeleted" msprop:Generator_UserTableName="Data_Header" msprop:Generator_RowChangedName="Data_HeaderRowChanged" msprop:Generator_RowEvArgName="Data_HeaderRowChangeEvent" msprop:Generator_RowClassName="Data_HeaderRow">
+        <xs:element name="Data_Header" msprop:Generator_TableClassName="Data_HeaderDataTable" msprop:Generator_TableVarName="tableData_Header" msprop:Generator_RowChangedName="Data_HeaderRowChanged" msprop:Generator_TablePropName="Data_Header" msprop:Generator_RowDeletingName="Data_HeaderRowDeleting" msprop:Generator_RowChangingName="Data_HeaderRowChanging" msprop:Generator_RowEvHandlerName="Data_HeaderRowChangeEventHandler" msprop:Generator_RowDeletedName="Data_HeaderRowDeleted" msprop:Generator_RowClassName="Data_HeaderRow" msprop:Generator_UserTableName="Data_Header" msprop:Generator_RowEvArgName="Data_HeaderRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -72,8 +72,8 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="SPS_Parameter_SPS" msdata:parent="SPS" msdata:child="SPS_Parameter" msdata:parentkey="id SPS_Name" msdata:childkey="id Name" msprop:Generator_UserChildTable="SPS_Parameter" msprop:Generator_ChildPropName="GetSPS_ParameterRows" msprop:Generator_UserRelationName="SPS_Parameter_SPS" msprop:Generator_ParentPropName="SPSRowParent" msprop:Generator_RelationVarName="relationSPS_Parameter_SPS" msprop:Generator_UserParentTable="SPS" />
-      <msdata:Relationship name="SPS_Parameter_Data_Header" msdata:parent="SPS_Parameter" msdata:child="Data_Header" msdata:parentkey="Name" msdata:childkey="SPS_Name" msprop:Generator_UserChildTable="Data_Header" msprop:Generator_ChildPropName="GetData_HeaderRows" msprop:Generator_UserRelationName="SPS_Parameter_Data_Header" msprop:Generator_ParentPropName="SPS_ParameterRow" msprop:Generator_RelationVarName="relationSPS_Parameter_Data_Header" msprop:Generator_UserParentTable="SPS_Parameter" />
+      <msdata:Relationship name="SPS_Parameter_SPS" msdata:parent="SPS" msdata:child="SPS_Parameter" msdata:parentkey="id SPS_Name" msdata:childkey="id Name" msprop:Generator_UserChildTable="SPS_Parameter" msprop:Generator_ChildPropName="GetSPS_ParameterRows" msprop:Generator_UserRelationName="SPS_Parameter_SPS" msprop:Generator_RelationVarName="relationSPS_Parameter_SPS" msprop:Generator_UserParentTable="SPS" msprop:Generator_ParentPropName="SPSRowParent" />
+      <msdata:Relationship name="SPS_Parameter_Data_Header" msdata:parent="SPS_Parameter" msdata:child="Data_Header" msdata:parentkey="Name" msdata:childkey="SPS_Name" msprop:Generator_UserChildTable="Data_Header" msprop:Generator_ChildPropName="GetData_HeaderRows" msprop:Generator_UserRelationName="SPS_Parameter_Data_Header" msprop:Generator_RelationVarName="relationSPS_Parameter_Data_Header" msprop:Generator_UserParentTable="SPS_Parameter" msprop:Generator_ParentPropName="SPS_ParameterRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

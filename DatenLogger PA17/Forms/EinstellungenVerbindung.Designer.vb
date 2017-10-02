@@ -42,29 +42,19 @@ Partial Class EinstellungenVerbindung
         Me.MaskedIPBox = New System.Windows.Forms.MaskedTextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IPDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TimeoutDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TimerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.WatchdogDBDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.WatchdogByteDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.WatchdogBitDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SPSParameterBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Connections = New DatenLogger_PA21.Connections()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
-        Me.IdDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SPSNameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ConnectionTypeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SPSBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.LoadSPS = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.Connections = New DatenLogger_PA21.SPSConnections()
+        Me.SPSParameterBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.SPSBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ConnectionTypeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SPSNameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SPSParameterBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Connections, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Connections, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SPSParameterBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SPSBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -80,7 +70,7 @@ Partial Class EinstellungenVerbindung
         'Button2
         '
         Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(504, 313)
+        Me.Button2.Location = New System.Drawing.Point(492, 226)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(80, 24)
         Me.Button2.TabIndex = 10
@@ -238,89 +228,62 @@ Partial Class EinstellungenVerbindung
         Me.Button1.Text = "Save"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'DataGridView1
+        'DataGridView2
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AutoGenerateColumns = False
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn, Me.NameDataGridViewTextBoxColumn, Me.IPDataGridViewTextBoxColumn, Me.TimeoutDataGridViewTextBoxColumn, Me.TimerDataGridViewTextBoxColumn, Me.WatchdogDBDataGridViewTextBoxColumn, Me.WatchdogByteDataGridViewTextBoxColumn, Me.WatchdogBitDataGridViewTextBoxColumn})
-        Me.DataGridView1.DataSource = Me.SPSParameterBindingSource
-        Me.DataGridView1.Location = New System.Drawing.Point(12, 226)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(568, 75)
-        Me.DataGridView1.TabIndex = 11
+        Me.DataGridView2.AllowUserToDeleteRows = False
+        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn1, Me.SPSNameDataGridViewTextBoxColumn, Me.ConnectionTypeDataGridViewTextBoxColumn})
+        Me.DataGridView2.Location = New System.Drawing.Point(262, 12)
+        Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.Size = New System.Drawing.Size(310, 164)
+        Me.DataGridView2.TabIndex = 12
         '
-        'IdDataGridViewTextBoxColumn
+        'LoadSPS
         '
-        Me.IdDataGridViewTextBoxColumn.DataPropertyName = "id"
-        Me.IdDataGridViewTextBoxColumn.HeaderText = "id"
-        Me.IdDataGridViewTextBoxColumn.Name = "IdDataGridViewTextBoxColumn"
-        Me.IdDataGridViewTextBoxColumn.Visible = False
+        Me.LoadSPS.Location = New System.Drawing.Point(317, 182)
+        Me.LoadSPS.Name = "LoadSPS"
+        Me.LoadSPS.Size = New System.Drawing.Size(83, 27)
+        Me.LoadSPS.TabIndex = 13
+        Me.LoadSPS.Text = "Lade"
+        Me.LoadSPS.UseVisualStyleBackColor = True
         '
-        'NameDataGridViewTextBoxColumn
+        'Button4
         '
-        Me.NameDataGridViewTextBoxColumn.DataPropertyName = "Name"
-        Me.NameDataGridViewTextBoxColumn.HeaderText = "Name"
-        Me.NameDataGridViewTextBoxColumn.Name = "NameDataGridViewTextBoxColumn"
-        Me.NameDataGridViewTextBoxColumn.Visible = False
-        '
-        'IPDataGridViewTextBoxColumn
-        '
-        Me.IPDataGridViewTextBoxColumn.DataPropertyName = "IP"
-        Me.IPDataGridViewTextBoxColumn.HeaderText = "IP"
-        Me.IPDataGridViewTextBoxColumn.Name = "IPDataGridViewTextBoxColumn"
-        '
-        'TimeoutDataGridViewTextBoxColumn
-        '
-        Me.TimeoutDataGridViewTextBoxColumn.DataPropertyName = "Timeout"
-        Me.TimeoutDataGridViewTextBoxColumn.HeaderText = "Timeout"
-        Me.TimeoutDataGridViewTextBoxColumn.Name = "TimeoutDataGridViewTextBoxColumn"
-        '
-        'TimerDataGridViewTextBoxColumn
-        '
-        Me.TimerDataGridViewTextBoxColumn.DataPropertyName = "Timer"
-        Me.TimerDataGridViewTextBoxColumn.HeaderText = "Timer"
-        Me.TimerDataGridViewTextBoxColumn.Name = "TimerDataGridViewTextBoxColumn"
-        '
-        'WatchdogDBDataGridViewTextBoxColumn
-        '
-        Me.WatchdogDBDataGridViewTextBoxColumn.DataPropertyName = "Watchdog_DB"
-        Me.WatchdogDBDataGridViewTextBoxColumn.HeaderText = "Watchdog_DB"
-        Me.WatchdogDBDataGridViewTextBoxColumn.Name = "WatchdogDBDataGridViewTextBoxColumn"
-        '
-        'WatchdogByteDataGridViewTextBoxColumn
-        '
-        Me.WatchdogByteDataGridViewTextBoxColumn.DataPropertyName = "Watchdog_Byte"
-        Me.WatchdogByteDataGridViewTextBoxColumn.HeaderText = "Watchdog_Byte"
-        Me.WatchdogByteDataGridViewTextBoxColumn.Name = "WatchdogByteDataGridViewTextBoxColumn"
-        '
-        'WatchdogBitDataGridViewTextBoxColumn
-        '
-        Me.WatchdogBitDataGridViewTextBoxColumn.DataPropertyName = "Watchdog_Bit"
-        Me.WatchdogBitDataGridViewTextBoxColumn.HeaderText = "Watchdog_Bit"
-        Me.WatchdogBitDataGridViewTextBoxColumn.Name = "WatchdogBitDataGridViewTextBoxColumn"
-        '
-        'SPSParameterBindingSource
-        '
-        Me.SPSParameterBindingSource.DataMember = "SPS_Parameter"
-        Me.SPSParameterBindingSource.DataSource = Me.Connections
+        Me.Button4.Location = New System.Drawing.Point(406, 182)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(81, 26)
+        Me.Button4.TabIndex = 14
+        Me.Button4.Text = "Hinzufügen"
+        Me.Button4.UseVisualStyleBackColor = True
         '
         'Connections
         '
         Me.Connections.DataSetName = "Connections"
         Me.Connections.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'DataGridView2
+        'SPSParameterBindingSource
         '
-        Me.DataGridView2.AllowUserToDeleteRows = False
-        Me.DataGridView2.AutoGenerateColumns = False
-        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn1, Me.SPSNameDataGridViewTextBoxColumn, Me.ConnectionTypeDataGridViewTextBoxColumn})
-        Me.DataGridView2.DataSource = Me.SPSBindingSource
-        Me.DataGridView2.Location = New System.Drawing.Point(266, 12)
-        Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(318, 164)
-        Me.DataGridView2.TabIndex = 12
+        Me.SPSParameterBindingSource.DataMember = "SPS_Parameter"
+        Me.SPSParameterBindingSource.DataSource = Me.Connections
+        '
+        'SPSBindingSource
+        '
+        Me.SPSBindingSource.DataMember = "SPS"
+        Me.SPSBindingSource.DataSource = Me.Connections
+        '
+        'ConnectionTypeDataGridViewTextBoxColumn
+        '
+        Me.ConnectionTypeDataGridViewTextBoxColumn.DataPropertyName = "Connection_Type"
+        Me.ConnectionTypeDataGridViewTextBoxColumn.HeaderText = "Verbindung"
+        Me.ConnectionTypeDataGridViewTextBoxColumn.Name = "ConnectionTypeDataGridViewTextBoxColumn"
+        Me.ConnectionTypeDataGridViewTextBoxColumn.ReadOnly = True
+        '
+        'SPSNameDataGridViewTextBoxColumn
+        '
+        Me.SPSNameDataGridViewTextBoxColumn.DataPropertyName = "SPS_Name"
+        Me.SPSNameDataGridViewTextBoxColumn.HeaderText = "SPS"
+        Me.SPSNameDataGridViewTextBoxColumn.Name = "SPSNameDataGridViewTextBoxColumn"
+        Me.SPSNameDataGridViewTextBoxColumn.ReadOnly = True
         '
         'IdDataGridViewTextBoxColumn1
         '
@@ -330,53 +293,15 @@ Partial Class EinstellungenVerbindung
         Me.IdDataGridViewTextBoxColumn1.ReadOnly = True
         Me.IdDataGridViewTextBoxColumn1.Visible = False
         '
-        'SPSNameDataGridViewTextBoxColumn
-        '
-        Me.SPSNameDataGridViewTextBoxColumn.DataPropertyName = "SPS_Name"
-        Me.SPSNameDataGridViewTextBoxColumn.HeaderText = "SPS"
-        Me.SPSNameDataGridViewTextBoxColumn.Name = "SPSNameDataGridViewTextBoxColumn"
-        Me.SPSNameDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'ConnectionTypeDataGridViewTextBoxColumn
-        '
-        Me.ConnectionTypeDataGridViewTextBoxColumn.DataPropertyName = "Connection_Type"
-        Me.ConnectionTypeDataGridViewTextBoxColumn.HeaderText = "Verbindung"
-        Me.ConnectionTypeDataGridViewTextBoxColumn.Name = "ConnectionTypeDataGridViewTextBoxColumn"
-        Me.ConnectionTypeDataGridViewTextBoxColumn.ReadOnly = True
-        '
-        'SPSBindingSource
-        '
-        Me.SPSBindingSource.DataMember = "SPS"
-        Me.SPSBindingSource.DataSource = Me.Connections
-        '
-        'LoadSPS
-        '
-        Me.LoadSPS.Location = New System.Drawing.Point(410, 182)
-        Me.LoadSPS.Name = "LoadSPS"
-        Me.LoadSPS.Size = New System.Drawing.Size(83, 27)
-        Me.LoadSPS.TabIndex = 13
-        Me.LoadSPS.Text = "Lade"
-        Me.LoadSPS.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(499, 182)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(81, 26)
-        Me.Button4.TabIndex = 14
-        Me.Button4.Text = "Hinzufügen"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
         'EinstellungenVerbindung
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(588, 341)
+        Me.ClientSize = New System.Drawing.Size(584, 262)
         Me.ControlBox = False
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.LoadSPS)
         Me.Controls.Add(Me.DataGridView2)
-        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -391,10 +316,9 @@ Partial Class EinstellungenVerbindung
         Me.Text = "EinstellungenVerbindung"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SPSParameterBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Connections, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Connections, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SPSParameterBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SPSBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -419,22 +343,13 @@ Partial Class EinstellungenVerbindung
     Friend WithEvents MaskedIPBox As MaskedTextBox
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Button1 As Button
-    Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents NameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents IPDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents TimeoutDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents TimerDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents WatchdogDBDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents WatchdogByteDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents WatchdogBitDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents SPSParameterBindingSource As BindingSource
-    Friend WithEvents Connections As Connections
     Friend WithEvents DataGridView2 As DataGridView
-    Friend WithEvents SPSBindingSource As BindingSource
     Friend WithEvents LoadSPS As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents IdDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents SPSNameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ConnectionTypeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Connections As SPSConnections
+    Friend WithEvents SPSParameterBindingSource As BindingSource
+    Friend WithEvents SPSBindingSource As BindingSource
 End Class

@@ -116,13 +116,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Connections.Designer.vb">
+    <Compile Include="SPSConnections.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Connections.xsd</DependentUpon>
+      <DependentUpon>SPSConnections.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Connections.vb">
-      <DependentUpon>Connections.xsd</DependentUpon>
+    <Compile Include="SPSConnections.vb">
+      <DependentUpon>SPSConnections.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Verarbeitung\LogWriter.vb" />
     <Compile Include="Verarbeitung\CSVExport.vb" />
@@ -184,16 +186,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Adds\DatenLogger PA17_TemporaryKey.pfx" />
-    <None Include="Connections.xsc">
-      <DependentUpon>Connections.xsd</DependentUpon>
+    <None Include="SPSConnections.xsc">
+      <DependentUpon>SPSConnections.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Connections.xsd">
+    <None Include="SPSConnections.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Connections.Designer.vb</LastGenOutput>
+      <LastGenOutput>SPSConnections.Designer.vb</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Connections.xss">
-      <DependentUpon>Connections.xsd</DependentUpon>
+    <None Include="SPSConnections.xss">
+      <DependentUpon>SPSConnections.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">

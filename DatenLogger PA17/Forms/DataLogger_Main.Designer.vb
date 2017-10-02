@@ -41,7 +41,7 @@ Partial Class DataLogger_Main
         Me.StatusBox = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.AktLog = New System.Windows.Forms.TextBox()
-        Me.Connections1 = New DatenLogger_PA21.Connections()
+        Me.Connections1 = New DatenLogger_PA21.SPSConnections()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.Connections1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -228,5 +228,5 @@ Partial Class DataLogger_Main
     Friend WithEvents StatusBox As TextBox
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents AktLog As TextBox
-    Friend WithEvents Connections1 As Connections
+    Friend WithEvents Connections1 As SPSConnections
 End Class

@@ -152,6 +152,48 @@ Module FileFunctions
         End Try
 
     End Sub
+    ''' <summary>
+    ''' Save a SPS Connection DataSet of Data to User Filesystem as XML
+    ''' </summary>
+    ''' <param name="dcon">SPS COnnection Set to save</param>
+    Public Sub SaveIsolatedUser(dcon As SPSConnections)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
+        Dim isoStream = New IsolatedStorageFileStream("ConfigurationSPS.xml", FileMode.Append, isoFile)
+
+        Try
+            dcon.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            isoStream.Close()
+            isoFile.Close()
+        End Try
+
+    End Sub
+
+    ''' <summary>
+    ''' Save a Connection Data Set in User Filesystem with unique Filename as XML
+    ''' </summary>
+    ''' <param name="dcon">SPS Connection Data</param>
+    ''' <param name="Filename">Filename</param>
+    Public Sub SaveIsolatedUser(dcon As SPSConnections, Filename As String)
+        Filename = String.Concat(Filename, ".xml")
+
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
+        Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
+
+        Try
+            dcon.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            'isoStream.Close()
+            isoFile.Close()
+        End Try
+
+    End Sub
 
     ''' <summary>
     ''' Read Out Configuration out of File in User Storage and returns it as Datatable
@@ -175,29 +217,45 @@ Module FileFunctions
             isoFile.Close()
             Return Nothing
         End Try
-
-
     End Function
 
-    Public Function LoadSetIsolatedUser(Filename As String)
+    'Public Function LoadSetIsolatedUser(Filename As String)
+    '    Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
+    '    Dim isoStream
+    '    Dim dataSet = New DataSet
+
+    '    Try
+    '        isoStream = New IsolatedStorageFileStream(Filename, FileMode.Open, isoFile)
+    '        dataSet.ReadXml(isoStream)
+    '        isoStream.Close()
+    '        isoFile.Close()
+    '        Return dataSet
+    '    Catch ex As Exception
+    '        MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+    '        'isoStream.Close()
+    '        isoFile.Close()
+    '        Return Nothing
+    '    End Try
+    'End Function
+
+    Public Function LoadSetIsolatedUser(Filename As String, SPSCon As SPSConnections)
         Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
         Dim isoStream
-        Dim dataSet = New DataSet
+        Dim dataCon = New SPSConnections
 
         Try
             isoStream = New IsolatedStorageFileStream(Filename, FileMode.Open, isoFile)
-            dataSet.ReadXml(isoStream)
+            dataCon.ReadXml(isoStream)
             isoStream.Close()
             isoFile.Close()
-            Return dataSet
+            Return dataCon
         Catch ex As Exception
             MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             'isoStream.Close()
             isoFile.Close()
-            Return Nothing
+            Return SPSCon
         End Try
 
 
     End Function
-
 End Module

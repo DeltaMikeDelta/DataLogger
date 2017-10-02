@@ -1,7 +1,7 @@
 ﻿Public Class EinstellungLogdatei
 
     Private Sub Einstellung_Logdatei_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If CheckPassWd(InputBox("Geben Sie das Passwort ein:", "Passwortabfrage"), "ini.xml") Then
+        If CheckPassWd(InputBox("Geben Sie das Passwort ein:", "Passwortabfrage"), My.Forms.DataLogger_Main.Init_Path) Then
 
             DateiPfad.Text = My.Settings.CSVPfad
             Dateiname.Text = My.Settings.Log_Name

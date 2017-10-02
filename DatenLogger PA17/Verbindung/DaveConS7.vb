@@ -424,7 +424,7 @@ error_PLC:
         End If
     End Function
 
-    Private Function ShowMessage(messageString)
+    Public Function ShowMessage(messageString)
         If IsNothing(textbox) Then
             Return -1
         Else
