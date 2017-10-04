@@ -1,6 +1,8 @@
 ﻿Public Class EinstellungenVerbindung
 
+
     Private helpString As String
+    Private Conn As SPSConnections
 
     Private Sub Einstellungen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -8,18 +10,23 @@
             'MaskedIPBox.Text = My.Settings.IP
             MaskedIPBox.ValidatingType = GetType(String)
             TextBox1.Text = "Aktuelle IP: " & GetIP()
-            Watchdog_DB_Nr.Text = My.Settings.WD_DB.ToString
+            ' Watchdog_DB_Nr.Text = My.Settings.WD_DB.ToString
             Watchdog_Byte.Text = My.Settings.WD_Byte.ToString
             Watchdog_Bit.Text = My.Settings.WD_Bit.ToString
             ReadCyc.Text = My.Settings.ReadCycle.ToString
             ConAttempts.Text = My.Settings.ConnetionAttemps.ToString
-            Connections = My.Forms.DataLogger_Main.Connections1
 
+            Conn = My.Forms.DataLogger_Main.GetConDataSet
+            DataGridView2.DataSource = Conn.SPS
+            DataGridView2.Update()
+            DataGridView2.FirstDisplayedCell.Selected = True
+
+            TextBox1.Text = "Aktuelle IP: " + Conn.SPS_Parameter.First.IP.ToString
             Me.Location = Owner.Location
             Owner.Enabled = False
         Else
             MessageBox.Show("Password falsch.")
-            Button2_Click(Me, EventArgs.Empty)
+            BtSchliessen_Click(Me, EventArgs.Empty)
         End If
     End Sub
 
@@ -47,11 +54,7 @@
         End If
     End Sub
 
-    'Private Sub MaskedTextBox1_TypeValidated(sender As Object, e As EventArgs)
-    '    Button1.Enabled = True
-    'End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub BtSchliessen_Click(sender As Object, e As EventArgs) Handles Bt_Schließen.Click
         Owner.Enabled = True
         Close()
     End Sub
@@ -62,11 +65,6 @@
         TextBox1.Text = "Aktuelle IP: " & GetIP()
         My.Settings.IP = helpString
     End Sub
-
-    'Private Sub SaveFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
-    '    DateiPfad.Text = SaveFileDialog1.FileName
-    '    My.Settings.CSVPfad = SaveFileDialog1.FileName
-    'End Sub
 
     Private Sub WatchdogDBNr_TextChanged(sender As Object, e As EventArgs) Handles Watchdog_DB_Nr.TextChanged
 
@@ -99,26 +97,13 @@
 
     Private Sub ReadCyc_TextChanged(sender As Object, e As EventArgs) Handles ReadCyc.TextChanged
         FalseInputInteger(My.Settings.ReadCycle, ReadCyc)
-        'If IsNumericInteger(ReadCyc.Text) Then
-        '    My.Settings.ReadCycle = CInt(ReadCyc.Text)
-        'Else
-        '    showTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", ReadCyc, ReadCyc.Location.X, ReadCyc.Location.Y, 5000)
-        '    ReadCyc.Text = My.Settings.ReadCycle
-        'End If
     End Sub
 
     Private Sub ConAttempts_TextChanged(sender As Object, e As EventArgs) Handles ConAttempts.TextChanged
         FalseInputInteger(My.Settings.ConnetionAttemps, ConAttempts)
-        'If IsNumericInteger(ConAttempts.Text) Then
-        '    My.Settings.ConnetionAttemps = CInt(ConAttempts.Text)
-        'Else
-        '    showTooltip(ToolTip1, "Eingabe ist keine Ganzzahl!", "Die Eingabe darf keine Buchstaben oder Sonderzeichen enthalten.", ConAttempts, ConAttempts.Location.X, ConAttempts.Location.Y, 5000)
-        '    ConAttempts.Text = My.Settings.ConnetionAttemps
-        'End If
     End Sub
 
     Private Function IsNumericInteger(stringArg As String) As Boolean
-        'If String.IsNullOrWhiteSpace(stringArg) Then Return False
         If IsNumeric(stringArg) Then Return True
         Dim parts() As String = stringArg.Split("/"c)
         If parts.Length <> 1 Then Return False
@@ -139,11 +124,34 @@
         Tolltipp.Show(text, fielt, x, y, duration)
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles LoadSPS.Click
+    Private Sub Load_Click(sender As Object, e As EventArgs) Handles LoadSPS.Click
+        Dim selectedCellCount As Integer = DataGridView2.GetCellCount(DataGridViewElementStates.Selected)
 
+        If selectedCellCount > 0 Then
+            Dim i As Integer = 0
+            Dim sb As New System.Text.StringBuilder()
+
+            i = 1 + i
+            sb.Append("SPS: ")
+            sb.Append(DataGridView2.SelectedCells(i).Value)
+            i = 1 + i
+            sb.Append("; Connection Type: ")
+            sb.Append(DataGridView2.SelectedCells(i).Value)
+
+            MessageBox.Show(sb.ToString + vbNewLine + DataGridView2.SelectedCells(0).Value.ToString + " hat den Typ: " + DataGridView2.SelectedCells(0).Value.GetType.ToString, "Test")
+            'MessageBox.Show(DataGridView2.SelectedCells(0).Value.ToString + " hat den Typ: " + DataGridView2.SelectedCells(0).Value.GetType.ToString, "Test")
+
+            Watchdog_DB_Nr.Text = Connections.SPS_Parameter.FindByid(DataGridView2.SelectedCells(0).Value).Watchdog_DB
+
+        End If
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
 
     End Sub
+
+    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
+
+    End Sub
+
 End Class

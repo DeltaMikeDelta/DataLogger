@@ -22,6 +22,12 @@ Public Class DataLogger_Main
     End Property
     'Private Worker As BackgroundWorker
 
+    Public ReadOnly Property GetConDataSet As SPSConnections
+        Get
+            Return Connections1
+        End Get
+    End Property
+
     Private Sub Form_Load() Handles Me.Load
         If IsNullOrEmpty(XMLRead("Passwd", Init_Path)) Then
             SetNewPassWD(init_Path_String)
@@ -85,9 +91,9 @@ Public Class DataLogger_Main
 
             MessageBox.Show(Connections1.SPS.Rows(0).Item("SPS_Name"))
             row1("Name") = Connections1.SPS.Rows(0).Item("SPS_Name")
-            row1("IP") = ConTable.Rows(0).Item("IP")
-            row1("Timeout") = ConTable.Rows(0).Item("Timeout")
-            row1("Timer") = ConTable.Rows(0).Item("Timer")
+            row1("IP") = My.Settings.IP
+            row1("Timeout") = My.Settings.ConnetionAttemps
+            row1("Timer") = My.Settings.ReadCycle
             row1("Watchdog_DB") = My.Settings.WD_DB
             row1("Watchdog_Byte") = My.Settings.WD_Byte
             row1("Watchdog_Bit") = My.Settings.WD_Bit
@@ -95,6 +101,10 @@ Public Class DataLogger_Main
             Connections1.SPS_Parameter.Rows.Add(row1)
             'ConnectionSet = Connections1
             SaveIsolatedUser(Connections1)
+
+            SetIP(Connections1.SPS_Parameter.Rows(Connections1.SPS_Parameter.PrimaryKey.Length - 1).Item("IP").ToString)
+            PingTimeout = Connections1.SPS_Parameter.Rows(Connections1.SPS_Parameter.PrimaryKey.Length - 1).Item("Timeout")
+            Timer1.Interval = Connections1.SPS_Parameter.Rows(Connections1.SPS_Parameter.PrimaryKey.Length - 1).Item("Timer")
         Else
             DaveConS7.ShowMessage("Lade Parameter")
             SetIP(Connections1.SPS_Parameter.Rows(Connections1.SPS_Parameter.PrimaryKey.Length - 1).Item("IP").ToString)
@@ -102,6 +112,7 @@ Public Class DataLogger_Main
             Timer1.Interval = Connections1.SPS_Parameter.Rows(Connections1.SPS_Parameter.PrimaryKey.Length - 1).Item("Timer")
         End If
 
+        DaveConS7.ShowMessage("Laden fertig.")
     End Sub
 
     Private Sub Init_Interface()

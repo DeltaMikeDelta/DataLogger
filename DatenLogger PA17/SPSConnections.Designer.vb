@@ -255,7 +255,7 @@ Partial Public Class SPSConnections
     Private Sub InitClass()
         Me.DataSetName = "SPSConnections"
         Me.Prefix = ""
-        Me.Namespace = "http://tempuri.org/Connections.xsd"
+        Me.Namespace = "http://tempuri.org/SPSConnections.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tableSPS = New SPSDataTable()

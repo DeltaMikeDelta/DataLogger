@@ -25,7 +25,7 @@ Partial Class EinstellungenVerbindung
         Me.components = New System.ComponentModel.Container()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Bt_Schließen = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.ConAttempts = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -43,19 +43,19 @@ Partial Class EinstellungenVerbindung
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.SPSBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ConnectionsBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Connections = New DatenLogger_PA21.SPSConnections()
         Me.LoadSPS = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.Connections = New DatenLogger_PA21.SPSConnections()
-        Me.SPSParameterBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.SPSBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ConnectionTypeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SPSNameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdDataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ConnectionTypeDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SPSBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ConnectionsBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Connections, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SPSParameterBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SPSBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SaveFileDialog1
@@ -67,15 +67,15 @@ Partial Class EinstellungenVerbindung
         '
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning
         '
-        'Button2
+        'Bt_Schließen
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(492, 226)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(80, 24)
-        Me.Button2.TabIndex = 10
-        Me.Button2.Text = "Schließen"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Bt_Schließen.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Bt_Schließen.Location = New System.Drawing.Point(479, 183)
+        Me.Bt_Schließen.Name = "Bt_Schließen"
+        Me.Bt_Schließen.Size = New System.Drawing.Size(81, 26)
+        Me.Bt_Schließen.TabIndex = 10
+        Me.Bt_Schließen.Text = "Schließen"
+        Me.Bt_Schließen.UseVisualStyleBackColor = True
         '
         'Label8
         '
@@ -230,17 +230,40 @@ Partial Class EinstellungenVerbindung
         '
         'DataGridView2
         '
+        Me.DataGridView2.AllowUserToAddRows = False
         Me.DataGridView2.AllowUserToDeleteRows = False
+        Me.DataGridView2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DataGridView2.AutoGenerateColumns = False
+        Me.DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn1, Me.SPSNameDataGridViewTextBoxColumn, Me.ConnectionTypeDataGridViewTextBoxColumn})
+        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDataGridViewTextBoxColumn, Me.SPSNameDataGridViewTextBoxColumn, Me.ConnectionTypeDataGridViewTextBoxColumn})
+        Me.DataGridView2.DataSource = Me.SPSBindingSource1
         Me.DataGridView2.Location = New System.Drawing.Point(262, 12)
         Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(310, 164)
+        Me.DataGridView2.RowTemplate.ReadOnly = True
+        Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.DataGridView2.Size = New System.Drawing.Size(298, 164)
         Me.DataGridView2.TabIndex = 12
+        '
+        'SPSBindingSource1
+        '
+        Me.SPSBindingSource1.DataMember = "SPS"
+        Me.SPSBindingSource1.DataSource = Me.ConnectionsBindingSource
+        '
+        'ConnectionsBindingSource
+        '
+        Me.ConnectionsBindingSource.DataSource = Me.Connections
+        Me.ConnectionsBindingSource.Position = 0
+        '
+        'Connections
+        '
+        Me.Connections.DataSetName = "Connections"
+        Me.Connections.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'LoadSPS
         '
-        Me.LoadSPS.Location = New System.Drawing.Point(317, 182)
+        Me.LoadSPS.Location = New System.Drawing.Point(261, 183)
         Me.LoadSPS.Name = "LoadSPS"
         Me.LoadSPS.Size = New System.Drawing.Size(83, 27)
         Me.LoadSPS.TabIndex = 13
@@ -249,65 +272,47 @@ Partial Class EinstellungenVerbindung
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(406, 182)
+        Me.Button4.Location = New System.Drawing.Point(350, 183)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(81, 26)
         Me.Button4.TabIndex = 14
         Me.Button4.Text = "Hinzufügen"
         Me.Button4.UseVisualStyleBackColor = True
         '
-        'Connections
+        'IdDataGridViewTextBoxColumn
         '
-        Me.Connections.DataSetName = "Connections"
-        Me.Connections.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'SPSParameterBindingSource
-        '
-        Me.SPSParameterBindingSource.DataMember = "SPS_Parameter"
-        Me.SPSParameterBindingSource.DataSource = Me.Connections
-        '
-        'SPSBindingSource
-        '
-        Me.SPSBindingSource.DataMember = "SPS"
-        Me.SPSBindingSource.DataSource = Me.Connections
-        '
-        'ConnectionTypeDataGridViewTextBoxColumn
-        '
-        Me.ConnectionTypeDataGridViewTextBoxColumn.DataPropertyName = "Connection_Type"
-        Me.ConnectionTypeDataGridViewTextBoxColumn.HeaderText = "Verbindung"
-        Me.ConnectionTypeDataGridViewTextBoxColumn.Name = "ConnectionTypeDataGridViewTextBoxColumn"
-        Me.ConnectionTypeDataGridViewTextBoxColumn.ReadOnly = True
+        Me.IdDataGridViewTextBoxColumn.DataPropertyName = "id"
+        Me.IdDataGridViewTextBoxColumn.HeaderText = "id"
+        Me.IdDataGridViewTextBoxColumn.Name = "IdDataGridViewTextBoxColumn"
+        Me.IdDataGridViewTextBoxColumn.Visible = False
         '
         'SPSNameDataGridViewTextBoxColumn
         '
         Me.SPSNameDataGridViewTextBoxColumn.DataPropertyName = "SPS_Name"
         Me.SPSNameDataGridViewTextBoxColumn.HeaderText = "SPS"
         Me.SPSNameDataGridViewTextBoxColumn.Name = "SPSNameDataGridViewTextBoxColumn"
-        Me.SPSNameDataGridViewTextBoxColumn.ReadOnly = True
         '
-        'IdDataGridViewTextBoxColumn1
+        'ConnectionTypeDataGridViewTextBoxColumn
         '
-        Me.IdDataGridViewTextBoxColumn1.DataPropertyName = "id"
-        Me.IdDataGridViewTextBoxColumn1.HeaderText = "id"
-        Me.IdDataGridViewTextBoxColumn1.Name = "IdDataGridViewTextBoxColumn1"
-        Me.IdDataGridViewTextBoxColumn1.ReadOnly = True
-        Me.IdDataGridViewTextBoxColumn1.Visible = False
+        Me.ConnectionTypeDataGridViewTextBoxColumn.DataPropertyName = "Connection_Type"
+        Me.ConnectionTypeDataGridViewTextBoxColumn.HeaderText = "Verbindung"
+        Me.ConnectionTypeDataGridViewTextBoxColumn.Name = "ConnectionTypeDataGridViewTextBoxColumn"
         '
         'EinstellungenVerbindung
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 262)
+        Me.ClientSize = New System.Drawing.Size(572, 221)
         Me.ControlBox = False
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.LoadSPS)
         Me.Controls.Add(Me.DataGridView2)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Bt_Schließen)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(300, 300)
+        Me.MinimumSize = New System.Drawing.Size(300, 10)
         Me.Name = "EinstellungenVerbindung"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
@@ -317,16 +322,16 @@ Partial Class EinstellungenVerbindung
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SPSBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ConnectionsBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Connections, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SPSParameterBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SPSBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents Button2 As Button
+    Friend WithEvents Bt_Schließen As Button
     Friend WithEvents Label8 As Label
     Friend WithEvents ConAttempts As TextBox
     Friend WithEvents Label6 As Label
@@ -346,10 +351,10 @@ Partial Class EinstellungenVerbindung
     Friend WithEvents DataGridView2 As DataGridView
     Friend WithEvents LoadSPS As Button
     Friend WithEvents Button4 As Button
-    Friend WithEvents IdDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents Connections As SPSConnections
+    Friend WithEvents SPSBindingSource1 As BindingSource
+    Friend WithEvents ConnectionsBindingSource As BindingSource
+    Friend WithEvents IdDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents SPSNameDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ConnectionTypeDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents Connections As SPSConnections
-    Friend WithEvents SPSParameterBindingSource As BindingSource
-    Friend WithEvents SPSBindingSource As BindingSource
 End Class

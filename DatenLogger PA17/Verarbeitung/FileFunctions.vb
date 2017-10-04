@@ -4,8 +4,6 @@ Imports System.IO.IsolatedStorage
 
 Module FileFunctions
 
-
-
     Public Function CheckFile(path As String)
         Return File.Exists(path)
     End Function
@@ -73,18 +71,19 @@ Module FileFunctions
     ''' </summary>
     ''' <param name="dset">Dataset of Parameter</param>
     Public Sub SaveIsolatedUser(dset As DataSet)
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
-        Dim isoStream = New IsolatedStorageFileStream("ConfigurationSet.xml", FileMode.Append, isoFile)
+        SaveIsolatedStorageNew(dset)
+        'Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
+        'Dim isoStream = New IsolatedStorageFileStream("ConfigurationSet.xml", FileMode.Append, isoFile)
 
-        Try
-            dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-            isoStream.Close()
-            isoFile.Close()
-        Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            'isoStream.Close()
-            isoFile.Close()
-        End Try
+        'Try
+        '    dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+        '    isoStream.Close()
+        '    isoFile.Close()
+        'Catch ex As Exception
+        '    MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        '    'isoStream.Close()
+        '    isoFile.Close()
+        'End Try
     End Sub
 
     ''' <summary>
@@ -95,19 +94,20 @@ Module FileFunctions
     ''' <param name="Filename">Filename</param>
     Public Sub SaveIsolatedUser(dset As DataSet, Filename As String)
         Filename = String.Concat(Filename, ".xml")
+        SaveIsolatedStorageNew(dset, Filename)
 
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
-        Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
+        'Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing)
+        'Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
 
-        Try
-            dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-            isoStream.Close()
-            isoFile.Close()
-        Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            'isoStream.Close()
-            isoFile.Close()
-        End Try
+        'Try
+        '    dset.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+        '    isoStream.Close()
+        '    isoFile.Close()
+        'Catch ex As Exception
+        '    MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        '    'isoStream.Close()
+        '    isoFile.Close()
+        'End Try
     End Sub
 
     ''' <summary>
@@ -115,18 +115,20 @@ Module FileFunctions
     ''' </summary>
     ''' <param name="dtab">DataTabele to save</param>
     Public Sub SaveIsolatedUser(dtab As DataTable)
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
-        Dim isoStream = New IsolatedStorageFileStream("ConfigurationTab.xml", FileMode.Append, isoFile)
+        SaveIsolatedStorageNew(dtab)
 
-        Try
-            dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-            isoStream.Close()
-            isoFile.Close()
-        Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            isoStream.Close()
-            isoFile.Close()
-        End Try
+        'Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
+        'Dim isoStream = New IsolatedStorageFileStream("ConfigurationTab.xml", FileMode.Append, isoFile)
+
+        'Try
+        '    dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+        '    isoStream.Close()
+        '    isoFile.Close()
+        'Catch ex As Exception
+        '    MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        '    isoStream.Close()
+        '    isoFile.Close()
+        'End Try
 
     End Sub
 
@@ -138,38 +140,27 @@ Module FileFunctions
     Public Sub SaveIsolatedUser(dtab As DataTable, Filename As String)
         Filename = String.Concat(Filename, ".xml")
 
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
-        Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
-
-        Try
-            dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-            isoStream.Close()
-            isoFile.Close()
-        Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            'isoStream.Close()
-            isoFile.Close()
-        End Try
+        SaveIsolatedStorageNew(dtab, Filename)
+        'Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
+        'Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
+        'Try
+        '    dtab.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+        '    isoStream.Close()
+        '    isoFile.Close()
+        'Catch ex As Exception
+        '    MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        '    'isoStream.Close()
+        '    isoFile.Close()
+        'End Try
 
     End Sub
+
     ''' <summary>
     ''' Save a SPS Connection DataSet of Data to User Filesystem as XML
     ''' </summary>
     ''' <param name="dcon">SPS COnnection Set to save</param>
     Public Sub SaveIsolatedUser(dcon As SPSConnections)
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
-        Dim isoStream = New IsolatedStorageFileStream("ConfigurationSPS.xml", FileMode.Append, isoFile)
-
-        Try
-            dcon.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-            isoStream.Close()
-            isoFile.Close()
-        Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            isoStream.Close()
-            isoFile.Close()
-        End Try
-
+        SaveIsolatedStorageNew(dcon, "ConfigurationSPS.xml")
     End Sub
 
     ''' <summary>
@@ -180,18 +171,20 @@ Module FileFunctions
     Public Sub SaveIsolatedUser(dcon As SPSConnections, Filename As String)
         Filename = String.Concat(Filename, ".xml")
 
-        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
-        Dim isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
+        SaveIsolatedStorageNew(dcon, Filename)
+        'Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
+        'Dim isoStream As IsolatedStorageFileStream
 
-        Try
-            dcon.WriteXml(isoStream, XmlWriteMode.WriteSchema)
-            isoStream.Close()
-            isoFile.Close()
-        Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            'isoStream.Close()
-            isoFile.Close()
-        End Try
+        'Try
+        '    isoStream = New IsolatedStorageFileStream(Filename, FileMode.Append, isoFile)
+        '    dcon.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+        '    isoStream.Close()
+        '    isoFile.Close()
+        'Catch ex As Exception
+        '    MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. \n\r Sie kann nicht gespeichert werden. " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+        '    'isoStream.Close()
+        '    isoFile.Close()
+        'End Try
 
     End Sub
 
@@ -255,7 +248,46 @@ Module FileFunctions
             isoFile.Close()
             Return SPSCon
         End Try
-
-
     End Function
+
+    ''' <summary>
+    ''' Write Data to isolated Storage to Standard File
+    ''' </summary>
+    ''' <param name="Data"></param>
+    Private Sub SaveIsolatedStorageNew(Data As Object)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
+        Dim isoStream As IsolatedStorageFileStream
+
+        Try
+            isoStream = New IsolatedStorageFileStream("Configuration.xml", FileMode.CreateNew, isoFile)
+            Data.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. Sie kann nicht gespeichert werden. " + vbNewLine + "Error: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            'isoStream.Close()
+            isoFile.Close()
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' Write Data to isolated Storage
+    ''' </summary>
+    ''' <param name="Data"></param>
+    ''' <param name="File"></param>
+    Private Sub SaveIsolatedStorageNew(Data As Object, File As String)
+        Dim isoFile = IsolatedStorageFile.GetStore(IsolatedStorageScope.User Or IsolatedStorageScope.Assembly, Nothing, Nothing) 'Or IsolatedStorageScope.Assembly
+        Dim isoStream As IsolatedStorageFileStream
+
+        Try
+            isoStream = New IsolatedStorageFileStream(File, FileMode.CreateNew, isoFile)
+            Data.WriteXml(isoStream, XmlWriteMode.WriteSchema)
+            isoStream.Close()
+            isoFile.Close()
+        Catch ex As Exception
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. Sie kann nicht gespeichert werden. " + vbNewLine + "Error: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            'isoStream.Close()
+            isoFile.Close()
+        End Try
+    End Sub
 End Module
