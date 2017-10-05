@@ -243,7 +243,7 @@ Module FileFunctions
             isoFile.Close()
             Return dataCon
         Catch ex As Exception
-            MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            MessageBox.Show("Fehler: Konfigurationsdatei nicht vorhanden!" + vbNewLine + "Fehler: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             'isoStream.Close()
             isoFile.Close()
             Return SPSCon
@@ -264,7 +264,7 @@ Module FileFunctions
             isoStream.Close()
             isoFile.Close()
         Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. Sie kann nicht gespeichert werden. " + vbNewLine + "Error: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. Sie kann nicht gespeichert werden. " + vbNewLine + "Fehler: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             'isoStream.Close()
             isoFile.Close()
         End Try
@@ -285,7 +285,7 @@ Module FileFunctions
             isoStream.Close()
             isoFile.Close()
         Catch ex As Exception
-            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. Sie kann nicht gespeichert werden. " + vbNewLine + "Error: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            MessageBox.Show("Beim, Speichern der Anwendungskonfiguration ist ein Fehler aufgetreten. Sie kann nicht gespeichert werden. " + vbNewLine + "Fehler: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             'isoStream.Close()
             isoFile.Close()
         End Try

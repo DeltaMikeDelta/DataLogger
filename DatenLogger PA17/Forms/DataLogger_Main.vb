@@ -9,7 +9,7 @@ Public Class DataLogger_Main
     Private absaugung_activ As Boolean  'Entfernen, wenn das mit dem Dataset funktioniert
     Private leck_activ As Boolean       'Entfernen, wenn das mit dem Dataset funktioniert
     Private init_Path_String As String = "Adds\ini.xml"
-    Private ConTable As DataTable
+    ' Private ConTable As DataTable
     Private ConfigsetName As String = "ConfigurationSet"
 
     Public Property Init_Path As String
@@ -39,37 +39,37 @@ Public Class DataLogger_Main
         'Erzeuge Pfad für die Logdatei
         Path = BuildPath()
 
-        ConTable = LoadTableIsolatedUser("ConfigurationTab.xml")
+        'ConTable = LoadTableIsolatedUser("ConfigurationTab.xml")
 
-        If IsNothing(ConTable) Then
-            'DataSet = New DataSet
-            Dim row As DataRow
+        'If IsNothing(ConTable) Then
+        '    'DataSet = New DataSet
+        '    Dim row As DataRow
 
-            ConTable = New DataTable("Parameter")
-            ConTable.Columns.Add("id", GetType(Int32))
-            ConTable.Columns.Add("Name", GetType(String))
-            ConTable.Columns.Add("IP", GetType(String))
-            ConTable.Columns.Add("Timeout", GetType(Int32))
-            ConTable.Columns.Add("Timer", GetType(Int32))
+        '    ConTable = New DataTable("Parameter")
+        '    ConTable.Columns.Add("id", GetType(Int32))
+        '    ConTable.Columns.Add("Name", GetType(String))
+        '    ConTable.Columns.Add("IP", GetType(String))
+        '    ConTable.Columns.Add("Timeout", GetType(Int32))
+        '    ConTable.Columns.Add("Timer", GetType(Int32))
 
-            row = ConTable.NewRow()
-            row("id") = 1
-            row("Name") = "SPS"
-            row("IP") = My.Settings.IP
-            row("Timeout") = My.Settings.ConnetionAttemps
-            row("Timer") = My.Settings.ReadCycle
+        '    row = ConTable.NewRow()
+        '    row("id") = 1
+        '    row("Name") = "SPS"
+        '    row("IP") = My.Settings.IP
+        '    row("Timeout") = My.Settings.ConnetionAttemps
+        '    row("Timer") = My.Settings.ReadCycle
 
-            ConTable.Rows.Add(row)
+        '    ConTable.Rows.Add(row)
 
-            'SetIP(ConTable.Rows(ConTable.PrimaryKey.Length).Item("IP").ToString) 'SetIP(ConTable.Rows("id" = 1).Item("IP"))
-            'PingTimeout = ConTable.Rows(ConTable.PrimaryKey.Length).Item(columnName:="Timeout")
-            'Timer1.Interval = ConTable.Rows(ConTable.PrimaryKey.Length).Item(columnName:="Timer")
-            'MessageBox.Show(ConTable.Rows(ConTable.PrimaryKey.Length).Item(columnName:="Timer").ToString)
-        Else
-            'SetIP(ConTable.Rows(ConTable.Rows(ConTable.PrimaryKey.Length).Item("IP")))
-            'PingTimeout = ConTable.Rows(ConTable.PrimaryKey.Length).Item("Timeout")
-            'Timer1.Interval = ConTable.Rows(ConTable.PrimaryKey.Length).Item("Timer")
-        End If
+        '    'SetIP(ConTable.Rows(ConTable.PrimaryKey.Length).Item("IP").ToString) 'SetIP(ConTable.Rows("id" = 1).Item("IP"))
+        '    'PingTimeout = ConTable.Rows(ConTable.PrimaryKey.Length).Item(columnName:="Timeout")
+        '    'Timer1.Interval = ConTable.Rows(ConTable.PrimaryKey.Length).Item(columnName:="Timer")
+        '    'MessageBox.Show(ConTable.Rows(ConTable.PrimaryKey.Length).Item(columnName:="Timer").ToString)
+        'Else
+        '    'SetIP(ConTable.Rows(ConTable.Rows(ConTable.PrimaryKey.Length).Item("IP")))
+        '    'PingTimeout = ConTable.Rows(ConTable.PrimaryKey.Length).Item("Timeout")
+        '    'Timer1.Interval = ConTable.Rows(ConTable.PrimaryKey.Length).Item("Timer")
+        'End If
 
         Connections1 = LoadSetIsolatedUser("ConfigurationSPS.xml", Connections1)
 
@@ -97,10 +97,11 @@ Public Class DataLogger_Main
             row1("Watchdog_DB") = My.Settings.WD_DB
             row1("Watchdog_Byte") = My.Settings.WD_Byte
             row1("Watchdog_Bit") = My.Settings.WD_Bit
+            row1("SPS_id") = Connections1.SPS.Rows(0).Item("id")
 
             Connections1.SPS_Parameter.Rows.Add(row1)
             'ConnectionSet = Connections1
-            SaveIsolatedUser(Connections1)
+            'SaveIsolatedUser(Connections1)
 
             SetIP(Connections1.SPS_Parameter.Rows(Connections1.SPS_Parameter.PrimaryKey.Length - 1).Item("IP").ToString)
             PingTimeout = Connections1.SPS_Parameter.Rows(Connections1.SPS_Parameter.PrimaryKey.Length - 1).Item("Timeout")
@@ -130,7 +131,7 @@ Public Class DataLogger_Main
         DaveConS7.DoDisconnectPLC()
 
         'Sichern der Einstellungen
-        SaveIsolatedUser(ConTable)
+        'SaveIsolatedUser(ConTable)
 
         'Connections1 = ConnectionSet
         SaveIsolatedUser(Connections1)

@@ -12,7 +12,7 @@
   <xs:element name="SPSConnections" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="SPSConnections" msprop:Generator_UserDSName="SPSConnections">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SPS" msprop:Generator_TableClassName="SPSDataTable" msprop:Generator_TableVarName="tableSPS" msprop:Generator_TablePropName="SPS" msprop:Generator_RowDeletingName="SPSRowDeleting" msprop:Generator_RowChangingName="SPSRowChanging" msprop:Generator_RowEvHandlerName="SPSRowChangeEventHandler" msprop:Generator_RowDeletedName="SPSRowDeleted" msprop:Generator_UserTableName="SPS" msprop:Generator_RowChangedName="SPSRowChanged" msprop:Generator_RowEvArgName="SPSRowChangeEvent" msprop:Generator_RowClassName="SPSRow">
+        <xs:element name="SPS" msprop:Generator_TableClassName="SPSDataTable" msprop:Generator_TableVarName="tableSPS" msprop:Generator_RowChangedName="SPSRowChanged" msprop:Generator_TablePropName="SPS" msprop:Generator_RowDeletingName="SPSRowDeleting" msprop:Generator_RowChangingName="SPSRowChanging" msprop:Generator_RowEvHandlerName="SPSRowChangeEventHandler" msprop:Generator_RowDeletedName="SPSRowDeleted" msprop:Generator_RowClassName="SPSRow" msprop:Generator_UserTableName="SPS" msprop:Generator_RowEvArgName="SPSRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -21,7 +21,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SPS_Parameter" msprop:Generator_TableClassName="SPS_ParameterDataTable" msprop:Generator_TableVarName="tableSPS_Parameter" msprop:Generator_TablePropName="SPS_Parameter" msprop:Generator_RowDeletingName="SPS_ParameterRowDeleting" msprop:Generator_RowChangingName="SPS_ParameterRowChanging" msprop:Generator_RowEvHandlerName="SPS_ParameterRowChangeEventHandler" msprop:Generator_RowDeletedName="SPS_ParameterRowDeleted" msprop:Generator_UserTableName="SPS_Parameter" msprop:Generator_RowChangedName="SPS_ParameterRowChanged" msprop:Generator_RowEvArgName="SPS_ParameterRowChangeEvent" msprop:Generator_RowClassName="SPS_ParameterRow">
+        <xs:element name="SPS_Parameter" msprop:Generator_TableClassName="SPS_ParameterDataTable" msprop:Generator_TableVarName="tableSPS_Parameter" msprop:Generator_RowChangedName="SPS_ParameterRowChanged" msprop:Generator_TablePropName="SPS_Parameter" msprop:Generator_RowDeletingName="SPS_ParameterRowDeleting" msprop:Generator_RowChangingName="SPS_ParameterRowChanging" msprop:Generator_RowEvHandlerName="SPS_ParameterRowChangeEventHandler" msprop:Generator_RowDeletedName="SPS_ParameterRowDeleted" msprop:Generator_RowClassName="SPS_ParameterRow" msprop:Generator_UserTableName="SPS_Parameter" msprop:Generator_RowEvArgName="SPS_ParameterRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -32,10 +32,11 @@
               <xs:element name="Watchdog_DB" msprop:Generator_ColumnVarNameInTable="columnWatchdog_DB" msprop:Generator_ColumnPropNameInRow="Watchdog_DB" msprop:Generator_ColumnPropNameInTable="Watchdog_DBColumn" msprop:Generator_UserColumnName="Watchdog_DB" type="xs:int" minOccurs="0" />
               <xs:element name="Watchdog_Byte" msprop:Generator_ColumnVarNameInTable="columnWatchdog_Byte" msprop:Generator_ColumnPropNameInRow="Watchdog_Byte" msprop:Generator_ColumnPropNameInTable="Watchdog_ByteColumn" msprop:Generator_UserColumnName="Watchdog_Byte" type="xs:int" minOccurs="0" />
               <xs:element name="Watchdog_Bit" msprop:Generator_ColumnVarNameInTable="columnWatchdog_Bit" msprop:Generator_ColumnPropNameInRow="Watchdog_Bit" msprop:Generator_ColumnPropNameInTable="Watchdog_BitColumn" msprop:Generator_UserColumnName="Watchdog_Bit" type="xs:int" minOccurs="0" />
+              <xs:element name="SPS_id" msprop:Generator_ColumnVarNameInTable="columnSPS_id" msprop:Generator_ColumnPropNameInRow="SPS_id" msprop:Generator_ColumnPropNameInTable="SPS_idColumn" msprop:Generator_UserColumnName="SPS_id" type="xs:int" default="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Data_Header" msprop:Generator_TableClassName="Data_HeaderDataTable" msprop:Generator_TableVarName="tableData_Header" msprop:Generator_TablePropName="Data_Header" msprop:Generator_RowDeletingName="Data_HeaderRowDeleting" msprop:Generator_RowChangingName="Data_HeaderRowChanging" msprop:Generator_RowEvHandlerName="Data_HeaderRowChangeEventHandler" msprop:Generator_RowDeletedName="Data_HeaderRowDeleted" msprop:Generator_UserTableName="Data_Header" msprop:Generator_RowChangedName="Data_HeaderRowChanged" msprop:Generator_RowEvArgName="Data_HeaderRowChangeEvent" msprop:Generator_RowClassName="Data_HeaderRow">
+        <xs:element name="Data_Header" msprop:Generator_TableClassName="Data_HeaderDataTable" msprop:Generator_TableVarName="tableData_Header" msprop:Generator_RowChangedName="Data_HeaderRowChanged" msprop:Generator_TablePropName="Data_Header" msprop:Generator_RowDeletingName="Data_HeaderRowDeleting" msprop:Generator_RowChangingName="Data_HeaderRowChanging" msprop:Generator_RowEvHandlerName="Data_HeaderRowChangeEventHandler" msprop:Generator_RowDeletedName="Data_HeaderRowDeleted" msprop:Generator_RowClassName="Data_HeaderRow" msprop:Generator_UserTableName="Data_Header" msprop:Generator_RowEvArgName="Data_HeaderRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -44,6 +45,7 @@
               <xs:element name="Quell_DB" msprop:Generator_ColumnVarNameInTable="columnQuell_DB" msprop:Generator_ColumnPropNameInRow="Quell_DB" msprop:Generator_ColumnPropNameInTable="Quell_DBColumn" msprop:Generator_UserColumnName="Quell_DB" type="xs:string" minOccurs="0" />
               <xs:element name="Byte_Count" msprop:Generator_ColumnVarNameInTable="columnByte_Count" msprop:Generator_ColumnPropNameInRow="Byte_Count" msprop:Generator_ColumnPropNameInTable="Byte_CountColumn" msprop:Generator_UserColumnName="Byte_Count" type="xs:string" minOccurs="0" />
               <xs:element name="Byte_Start" msprop:Generator_ColumnVarNameInTable="columnByte_Start" msprop:Generator_ColumnPropNameInRow="Byte_Start" msprop:Generator_ColumnPropNameInTable="Byte_StartColumn" msprop:Generator_UserColumnName="Byte_Start" type="xs:string" minOccurs="0" />
+              <xs:element name="SPS_Parameter_id" msprop:Generator_ColumnVarNameInTable="columnSPS_Parameter_id" msprop:Generator_ColumnPropNameInRow="SPS_Parameter_id" msprop:Generator_ColumnPropNameInTable="SPS_Parameter_idColumn" msprop:Generator_UserColumnName="SPS_Parameter_id" type="xs:int" default="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -72,8 +74,8 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="SPS_Parameter_SPS" msdata:parent="SPS" msdata:child="SPS_Parameter" msdata:parentkey="id SPS_Name" msdata:childkey="id Name" msprop:Generator_UserChildTable="SPS_Parameter" msprop:Generator_ChildPropName="GetSPS_ParameterRows" msprop:Generator_UserRelationName="SPS_Parameter_SPS" msprop:Generator_ParentPropName="SPSRowParent" msprop:Generator_RelationVarName="relationSPS_Parameter_SPS" msprop:Generator_UserParentTable="SPS" />
-      <msdata:Relationship name="SPS_Parameter_Data_Header" msdata:parent="SPS_Parameter" msdata:child="Data_Header" msdata:parentkey="Name" msdata:childkey="SPS_Name" msprop:Generator_UserChildTable="Data_Header" msprop:Generator_ChildPropName="GetData_HeaderRows" msprop:Generator_UserRelationName="SPS_Parameter_Data_Header" msprop:Generator_ParentPropName="SPS_ParameterRow" msprop:Generator_RelationVarName="relationSPS_Parameter_Data_Header" msprop:Generator_UserParentTable="SPS_Parameter" />
+      <msdata:Relationship name="SPS_Parameter_SPS" msdata:parent="SPS" msdata:child="SPS_Parameter" msdata:parentkey="id SPS_Name" msdata:childkey="SPS_id Name" msprop:Generator_UserChildTable="SPS_Parameter" msprop:Generator_ChildPropName="GetSPS_ParameterRows" msprop:Generator_UserRelationName="SPS_Parameter_SPS" msprop:Generator_ParentPropName="SPSRowParent" msprop:Generator_RelationVarName="relationSPS_Parameter_SPS" msprop:Generator_UserParentTable="SPS" />
+      <msdata:Relationship name="SPS_Parameter_Data_Header" msdata:parent="SPS_Parameter" msdata:child="Data_Header" msdata:parentkey="Name id" msdata:childkey="SPS_Name SPS_Parameter_id" msprop:Generator_UserChildTable="Data_Header" msprop:Generator_ChildPropName="GetData_HeaderRows" msprop:Generator_UserRelationName="SPS_Parameter_Data_Header" msprop:Generator_ParentPropName="SPS_ParameterRowParent" msprop:Generator_RelationVarName="relationSPS_Parameter_Data_Header" msprop:Generator_UserParentTable="SPS_Parameter" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -3,6 +3,7 @@
 
     Private helpString As String
     Private Conn As SPSConnections
+    Private Table As DataTable
 
     Private Sub Einstellungen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -17,9 +18,26 @@
             ConAttempts.Text = My.Settings.ConnetionAttemps.ToString
 
             Conn = My.Forms.DataLogger_Main.GetConDataSet
-            DataGridView2.DataSource = Conn.SPS
-            DataGridView2.Update()
-            DataGridView2.FirstDisplayedCell.Selected = True
+            SPS_Verbindungen.DataSource = Conn.SPS
+            'DataGridView2.Columns
+            SPS_Verbindungen.Update()
+            SPS_Verbindungen.FirstDisplayedCell.Selected = True
+            SPS_Verbindungen.Columns("id").Visible = False
+            SPS_Verbindungen.Columns("SPS_Name").HeaderText = "SPS Name"
+            SPS_Verbindungen.Columns("Connection_Type").HeaderText = "Verbindugstyp"
+
+            Dim columnCount As Int32 = Conn.SPS_Parameter.Columns.Count
+            For i = 0 To columnCount
+                Verbindungsparameter.Columns.Add(Conn.SPS_Parameter.Columns(i).ColumnName, Conn.SPS_Parameter.Columns(i).Caption)
+                'Verbindungsparameter.Columns(i).HeaderText = Conn.SPS_Parameter.Columns(i).Caption
+                Verbindungsparameter.Columns(i).Visible = True
+                If i = 0 Then
+                    Verbindungsparameter.Columns(i).Visible = False
+                End If
+            Next
+
+            Verbindungsparameter.ReadOnly = True
+            Verbindungsparameter.Update()
 
             TextBox1.Text = "Aktuelle IP: " + Conn.SPS_Parameter.First.IP.ToString
             Me.Location = Owner.Location
@@ -52,6 +70,34 @@
             'SetIP(helpString)
             'Button1.Enabled = True
         End If
+    End Sub
+
+    Private Sub Load_Click(sender As Object, e As EventArgs) Handles LoadSPS.Click
+
+        Watchdog_DB_Nr.Text = Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).Watchdog_DB.ToString
+        Dim table As DataTable = New DataTable
+
+        'Dim columnCount As Int32 = Conn.SPS_Parameter.Columns.Count
+        'For i = 0 To columnCount - 1
+        '    table.Columns.Add(i.ToString, Conn.SPS_Parameter.Columns(i).GetType)
+        'Next
+        'table.Rows.Add(Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value))
+        'Verbindungsparameter.DataSource = Conn.SPS_Parameter '.FindByid(SPS_Verbindungen.SelectedCells(0).Value)
+        Verbindungsparameter.Rows.Insert(0, Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).id, Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).Name, Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).IP _
+                                         , Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).Timeout, Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).Timer _
+                                         , Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).Watchdog_DB, Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).Watchdog_Byte, Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).Watchdog_Bit _
+                                         , Conn.SPS_Parameter.FindByid(SPS_Verbindungen.SelectedCells(0).Value).SPS_id)
+        Verbindungsparameter.ReadOnly = False
+
+
+    End Sub
+
+    Private Sub Hinzufügen_Click(sender As Object, e As EventArgs) Handles Hinzufügen.Click
+
+    End Sub
+
+    Private Sub Speichern_Click(sender As Object, e As EventArgs) Handles Speichern.Click
+
     End Sub
 
     Private Sub BtSchliessen_Click(sender As Object, e As EventArgs) Handles Bt_Schließen.Click
@@ -124,34 +170,7 @@
         Tolltipp.Show(text, fielt, x, y, duration)
     End Sub
 
-    Private Sub Load_Click(sender As Object, e As EventArgs) Handles LoadSPS.Click
-        Dim selectedCellCount As Integer = DataGridView2.GetCellCount(DataGridViewElementStates.Selected)
 
-        If selectedCellCount > 0 Then
-            Dim i As Integer = 0
-            Dim sb As New System.Text.StringBuilder()
 
-            i = 1 + i
-            sb.Append("SPS: ")
-            sb.Append(DataGridView2.SelectedCells(i).Value)
-            i = 1 + i
-            sb.Append("; Connection Type: ")
-            sb.Append(DataGridView2.SelectedCells(i).Value)
-
-            MessageBox.Show(sb.ToString + vbNewLine + DataGridView2.SelectedCells(0).Value.ToString + " hat den Typ: " + DataGridView2.SelectedCells(0).Value.GetType.ToString, "Test")
-            'MessageBox.Show(DataGridView2.SelectedCells(0).Value.ToString + " hat den Typ: " + DataGridView2.SelectedCells(0).Value.GetType.ToString, "Test")
-
-            Watchdog_DB_Nr.Text = Connections.SPS_Parameter.FindByid(DataGridView2.SelectedCells(0).Value).Watchdog_DB
-
-        End If
-    End Sub
-
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-
-    End Sub
-
-    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
-
-    End Sub
 
 End Class

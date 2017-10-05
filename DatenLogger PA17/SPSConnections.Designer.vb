@@ -264,9 +264,9 @@ Partial Public Class SPSConnections
         MyBase.Tables.Add(Me.tableSPS_Parameter)
         Me.tableData_Header = New Data_HeaderDataTable()
         MyBase.Tables.Add(Me.tableData_Header)
-        Me.relationSPS_Parameter_SPS = New Global.System.Data.DataRelation("SPS_Parameter_SPS", New Global.System.Data.DataColumn() {Me.tableSPS.idColumn, Me.tableSPS.SPS_NameColumn}, New Global.System.Data.DataColumn() {Me.tableSPS_Parameter.idColumn, Me.tableSPS_Parameter.NameColumn}, false)
+        Me.relationSPS_Parameter_SPS = New Global.System.Data.DataRelation("SPS_Parameter_SPS", New Global.System.Data.DataColumn() {Me.tableSPS.idColumn, Me.tableSPS.SPS_NameColumn}, New Global.System.Data.DataColumn() {Me.tableSPS_Parameter.SPS_idColumn, Me.tableSPS_Parameter.NameColumn}, false)
         Me.Relations.Add(Me.relationSPS_Parameter_SPS)
-        Me.relationSPS_Parameter_Data_Header = New Global.System.Data.DataRelation("SPS_Parameter_Data_Header", New Global.System.Data.DataColumn() {Me.tableSPS_Parameter.NameColumn}, New Global.System.Data.DataColumn() {Me.tableData_Header.SPS_NameColumn}, false)
+        Me.relationSPS_Parameter_Data_Header = New Global.System.Data.DataRelation("SPS_Parameter_Data_Header", New Global.System.Data.DataColumn() {Me.tableSPS_Parameter.NameColumn, Me.tableSPS_Parameter.idColumn}, New Global.System.Data.DataColumn() {Me.tableData_Header.SPS_NameColumn, Me.tableData_Header.SPS_Parameter_idColumn}, false)
         Me.Relations.Add(Me.relationSPS_Parameter_Data_Header)
     End Sub
     
@@ -669,6 +669,8 @@ Partial Public Class SPSConnections
         
         Private columnWatchdog_Bit As Global.System.Data.DataColumn
         
+        Private columnSPS_id As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -769,6 +771,14 @@ Partial Public Class SPSConnections
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property SPS_idColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSPS_id
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -805,9 +815,9 @@ Partial Public Class SPSConnections
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddSPS_ParameterRow(ByVal Name As String, ByVal IP As String, ByVal Timeout As Integer, ByVal Timer As Integer, ByVal Watchdog_DB As Integer, ByVal Watchdog_Byte As Integer, ByVal Watchdog_Bit As Integer) As SPS_ParameterRow
+        Public Overloads Function AddSPS_ParameterRow(ByVal Name As String, ByVal IP As String, ByVal Timeout As Integer, ByVal Timer As Integer, ByVal Watchdog_DB As Integer, ByVal Watchdog_Byte As Integer, ByVal Watchdog_Bit As Integer, ByVal SPS_id As Integer) As SPS_ParameterRow
             Dim rowSPS_ParameterRow As SPS_ParameterRow = CType(Me.NewRow,SPS_ParameterRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Name, IP, Timeout, Timer, Watchdog_DB, Watchdog_Byte, Watchdog_Bit}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Name, IP, Timeout, Timer, Watchdog_DB, Watchdog_Byte, Watchdog_Bit, SPS_id}
             rowSPS_ParameterRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowSPS_ParameterRow)
             Return rowSPS_ParameterRow
@@ -844,6 +854,7 @@ Partial Public Class SPSConnections
             Me.columnWatchdog_DB = MyBase.Columns("Watchdog_DB")
             Me.columnWatchdog_Byte = MyBase.Columns("Watchdog_Byte")
             Me.columnWatchdog_Bit = MyBase.Columns("Watchdog_Bit")
+            Me.columnSPS_id = MyBase.Columns("SPS_id")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -865,12 +876,16 @@ Partial Public Class SPSConnections
             MyBase.Columns.Add(Me.columnWatchdog_Byte)
             Me.columnWatchdog_Bit = New Global.System.Data.DataColumn("Watchdog_Bit", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnWatchdog_Bit)
+            Me.columnSPS_id = New Global.System.Data.DataColumn("SPS_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSPS_id)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("SPS_ParameterKey1", New Global.System.Data.DataColumn() {Me.columnid}, true))
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnName}, false))
             Me.columnid.AutoIncrement = true
             Me.columnid.AllowDBNull = false
             Me.columnid.Unique = true
             Me.columnName.Unique = true
+            Me.columnSPS_id.AllowDBNull = false
+            Me.columnSPS_id.DefaultValue = CType(0,Integer)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1020,6 +1035,8 @@ Partial Public Class SPSConnections
         
         Private columnByte_Start As Global.System.Data.DataColumn
         
+        Private columnSPS_Parameter_id As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -1104,6 +1121,14 @@ Partial Public Class SPSConnections
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property SPS_Parameter_idColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSPS_Parameter_id
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1140,12 +1165,9 @@ Partial Public Class SPSConnections
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddData_HeaderRow(ByVal Log_Type As String, ByVal parentSPS_ParameterRowBySPS_Parameter_Data_Header As SPS_ParameterRow, ByVal Quell_DB As String, ByVal Byte_Count As String, ByVal Byte_Start As String) As Data_HeaderRow
+        Public Overloads Function AddData_HeaderRow(ByVal Log_Type As String, ByVal SPS_Name As String, ByVal Quell_DB As String, ByVal Byte_Count As String, ByVal Byte_Start As String, ByVal SPS_Parameter_id As Integer) As Data_HeaderRow
             Dim rowData_HeaderRow As Data_HeaderRow = CType(Me.NewRow,Data_HeaderRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Log_Type, Nothing, Quell_DB, Byte_Count, Byte_Start}
-            If (Not (parentSPS_ParameterRowBySPS_Parameter_Data_Header) Is Nothing) Then
-                columnValuesArray(2) = parentSPS_ParameterRowBySPS_Parameter_Data_Header(1)
-            End If
+            Dim columnValuesArray() As Object = New Object() {Nothing, Log_Type, SPS_Name, Quell_DB, Byte_Count, Byte_Start, SPS_Parameter_id}
             rowData_HeaderRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowData_HeaderRow)
             Return rowData_HeaderRow
@@ -1180,6 +1202,7 @@ Partial Public Class SPSConnections
             Me.columnQuell_DB = MyBase.Columns("Quell_DB")
             Me.columnByte_Count = MyBase.Columns("Byte_Count")
             Me.columnByte_Start = MyBase.Columns("Byte_Start")
+            Me.columnSPS_Parameter_id = MyBase.Columns("SPS_Parameter_id")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1197,10 +1220,14 @@ Partial Public Class SPSConnections
             MyBase.Columns.Add(Me.columnByte_Count)
             Me.columnByte_Start = New Global.System.Data.DataColumn("Byte_Start", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnByte_Start)
+            Me.columnSPS_Parameter_id = New Global.System.Data.DataColumn("SPS_Parameter_id", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSPS_Parameter_id)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnid}, true))
             Me.columnid.AutoIncrement = true
             Me.columnid.AllowDBNull = false
             Me.columnid.Unique = true
+            Me.columnSPS_Parameter_id.AllowDBNull = false
+            Me.columnSPS_Parameter_id.DefaultValue = CType(0,Integer)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1554,6 +1581,17 @@ Partial Public Class SPSConnections
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property SPS_id() As Integer
+            Get
+                Return CType(Me(Me.tableSPS_Parameter.SPS_idColumn),Integer)
+            End Get
+            Set
+                Me(Me.tableSPS_Parameter.SPS_idColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Property SPSRowParent() As SPSRow
             Get
                 Return CType(Me.GetParentRow(Me.Table.ParentRelations("SPS_Parameter_SPS")),SPSRow)
@@ -1761,7 +1799,18 @@ Partial Public Class SPSConnections
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property SPS_ParameterRow() As SPS_ParameterRow
+        Public Property SPS_Parameter_id() As Integer
+            Get
+                Return CType(Me(Me.tableData_Header.SPS_Parameter_idColumn),Integer)
+            End Get
+            Set
+                Me(Me.tableData_Header.SPS_Parameter_idColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property SPS_ParameterRowParent() As SPS_ParameterRow
             Get
                 Return CType(Me.GetParentRow(Me.Table.ParentRelations("SPS_Parameter_Data_Header")),SPS_ParameterRow)
             End Get
