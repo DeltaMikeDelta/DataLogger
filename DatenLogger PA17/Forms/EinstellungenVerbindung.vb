@@ -11,7 +11,7 @@
             'MaskedIPBox.Text = My.Settings.IP
             MaskedIPBox.ValidatingType = GetType(String)
             TextBox1.Text = "Aktuelle IP: " & GetIP()
-            ' Watchdog_DB_Nr.Text = My.Settings.WD_DB.ToString
+            Watchdog_DB_Nr.Text = My.Settings.WD_DB.ToString
             Watchdog_Byte.Text = My.Settings.WD_Byte.ToString
             Watchdog_Bit.Text = My.Settings.WD_Bit.ToString
             ReadCyc.Text = My.Settings.ReadCycle.ToString
@@ -110,6 +110,7 @@
         SetIP(helpString)
         TextBox1.Text = "Aktuelle IP: " & GetIP()
         My.Settings.IP = helpString
+
     End Sub
 
     Private Sub WatchdogDBNr_TextChanged(sender As Object, e As EventArgs) Handles Watchdog_DB_Nr.TextChanged

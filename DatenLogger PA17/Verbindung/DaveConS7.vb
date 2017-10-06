@@ -259,6 +259,10 @@ error_PLC:
         Return daveConection.getFloatAt(pos)
     End Function
 
+    Public Function BitFromBuffer(pos As Integer, Bit As Integer)
+
+    End Function
+
     ''' <summary>
     ''' Reads an Integer Value from an DB. Number of Byte as Startadress have to be even.
     ''' </summary>

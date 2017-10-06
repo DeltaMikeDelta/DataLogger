@@ -237,6 +237,7 @@ Partial Class EinstellungenVerbindung
         Me.SPS_Verbindungen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.SPS_Verbindungen.Size = New System.Drawing.Size(287, 144)
         Me.SPS_Verbindungen.TabIndex = 12
+        Me.SPS_Verbindungen.Visible = False
         '
         'LoadSPS
         '
@@ -246,6 +247,7 @@ Partial Class EinstellungenVerbindung
         Me.LoadSPS.TabIndex = 13
         Me.LoadSPS.Text = "Lade"
         Me.LoadSPS.UseVisualStyleBackColor = True
+        Me.LoadSPS.Visible = False
         '
         'Hinzufügen
         '
@@ -256,6 +258,7 @@ Partial Class EinstellungenVerbindung
         Me.Hinzufügen.TabIndex = 14
         Me.Hinzufügen.Text = "Hinzufügen"
         Me.Hinzufügen.UseVisualStyleBackColor = True
+        Me.Hinzufügen.Visible = False
         '
         'Verbindungsparameter
         '
@@ -269,6 +272,7 @@ Partial Class EinstellungenVerbindung
         Me.Verbindungsparameter.Name = "Verbindungsparameter"
         Me.Verbindungsparameter.Size = New System.Drawing.Size(537, 56)
         Me.Verbindungsparameter.TabIndex = 15
+        Me.Verbindungsparameter.Visible = False
         '
         'Speichern
         '
@@ -278,6 +282,7 @@ Partial Class EinstellungenVerbindung
         Me.Speichern.TabIndex = 16
         Me.Speichern.Text = "Speichern"
         Me.Speichern.UseVisualStyleBackColor = True
+        Me.Speichern.Visible = False
         '
         'Label7
         '
@@ -287,6 +292,7 @@ Partial Class EinstellungenVerbindung
         Me.Label7.Size = New System.Drawing.Size(76, 13)
         Me.Label7.TabIndex = 17
         Me.Label7.Text = "Verbindungen:"
+        Me.Label7.Visible = False
         '
         'EinstellungenVerbindung
         '

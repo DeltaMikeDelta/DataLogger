@@ -12,6 +12,8 @@ Public Class DataLogger_Main
     ' Private ConTable As DataTable
     Private ConfigsetName As String = "ConfigurationSet"
 
+    'Private BGWCollection As Collection
+
     Public Property Init_Path As String
         Get
             Return init_Path_String
@@ -38,6 +40,8 @@ Public Class DataLogger_Main
 
         'Erzeuge Pfad für die Logdatei
         Path = BuildPath()
+
+        'BGWCollection.Add(New BackgroundWorker)
 
         'ConTable = LoadTableIsolatedUser("ConfigurationTab.xml")
 
@@ -89,7 +93,7 @@ Public Class DataLogger_Main
 
             row1 = Connections1.SPS_Parameter.NewSPS_ParameterRow()
 
-            MessageBox.Show(Connections1.SPS.Rows(0).Item("SPS_Name"))
+            'MessageBox.Show(Connections1.SPS.Rows(0).Item("SPS_Name"))
             row1("Name") = Connections1.SPS.Rows(0).Item("SPS_Name")
             row1("IP") = My.Settings.IP
             row1("Timeout") = My.Settings.ConnetionAttemps
@@ -130,10 +134,15 @@ Public Class DataLogger_Main
         Timer1.Stop()
         DaveConS7.DoDisconnectPLC()
 
-        'Sichern der Einstellungen
-        'SaveIsolatedUser(ConTable)
+        Connections1.SPS_Parameter.Rows(0).Item("IP") = My.Settings.IP
+        Connections1.SPS_Parameter.Rows(0).Item("Timeout") = My.Settings.ConnetionAttemps
+        Connections1.SPS_Parameter.Rows(0).Item("Timer") = My.Settings.ReadCycle
+        Connections1.SPS_Parameter.Rows(0).Item("Watchdog_DB") = My.Settings.WD_DB
+        Connections1.SPS_Parameter.Rows(0).Item("Watchdog_Byte") = My.Settings.WD_Byte
+        Connections1.SPS_Parameter.Rows(0).Item("Watchdog_Bit") = My.Settings.WD_Bit
 
-        'Connections1 = ConnectionSet
+        Connections1.AcceptChanges()
+
         SaveIsolatedUser(Connections1)
     End Sub
 
@@ -241,6 +250,8 @@ Public Class DataLogger_Main
         Panel3.BackColor = Color.Red
         Write_Line("D:\Debug.csv", Now.ToLocalTime.ToString & "; Verbindung getrennt;")
     End Sub
+
+
 
 End Class
 
