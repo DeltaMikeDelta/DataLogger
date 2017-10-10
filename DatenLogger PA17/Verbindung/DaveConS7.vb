@@ -230,14 +230,19 @@ error_PLC:
     ''' <summary>
     ''' Reads Up to 222 Bytes in a Row out of the PLC
     ''' </summary>
-    ''' <param name="dbNr">DB Nr</param>
-    ''' <param name="byteStart">Byte Start Adress</param>
-    ''' <param name="length">Count of Bytes</param>
+    ''' <param name="dbNr">DB Nr reading from</param>
+    ''' <param name="byteStart">Byte Start Adress within DB</param>
+    ''' <param name="length">Count of Bytes to read beginning at byteStart</param>
     ''' <returns></returns>
     Public Function GetBytes(dbNr As Integer, byteStart As Integer, length As Integer) As Byte()
         Dim buf(length) As Byte
         'GetBytes(0) = -1
-        State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, length, buf)
+        If length <= 222 Then
+            State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, length, buf)
+        Else
+            State = daveConection.readManyBytes(libnodave.daveDB, dbNr, byteStart, length, buf)
+        End If
+
         If State = 0 Then
             Return buf
         End If
@@ -251,15 +256,49 @@ error_PLC:
         Return libnodave.getFloatfrom(buf, pos)
     End Function
 
-    Public Function IntFromBuffer(pos As Integer) As Single
-        Return daveConection.getFloatAt(pos)
+    Public Function IntFromBuffer(pos As Integer) As Int16
+        Return daveConection.getU16At(pos)
     End Function
 
-    Public Function ByteFromBuffer(pos As Integer) As Single
-        Return daveConection.getFloatAt(pos)
+    Public Function ByteFromBuffer(pos As Integer) As Byte
+        Return daveConection.getS8At(pos)
     End Function
 
-    Public Function BitFromBuffer(pos As Integer, Bit As Integer)
+    Public Function StringFromBuffer(pos As Integer, length As Integer) As String
+        Dim charCat As String = ""
+        For i = pos To pos + length - 1
+            charCat = charCat & Chr(daveConection.getU8At(i))
+        Next
+        Return charCat
+    End Function
+
+    Public Function BitFromBuffer(posInBuffer As Integer, Bit As Integer, länge As Integer, asBool As Boolean)
+        Dim BinaryString As String
+        If länge < 16 Or (länge > 16 And länge < 24) Then
+            länge = 16
+        ElseIf länge > 32 Or (länge >= 24 And länge < 32) Then
+            länge = 32
+        Else länge = länge
+        End If
+        If Bit > länge - 1 Then
+            Bit = länge - 1
+        End If
+        Bit = (länge - 1) - Bit
+        BinaryString = Convert.ToString(IntFromBuffer(posInBuffer), 2).PadLeft(länge, "0"c) '16 bits
+        BinaryString = BinaryString.Substring(Bit, 1)
+        If asBool Then
+            If String.Equals(BinaryString, "1") Then
+                Return True
+            Else
+                Return False
+            End If
+        Else
+            If String.Equals(BinaryString, "1") Then
+                Return "1"
+            Else
+                Return "0"
+            End If
+        End If
 
     End Function
 
@@ -289,7 +328,7 @@ error_PLC:
         GetDInteger = 0
         State = daveConection.readBytes(libnodave.daveDB, dbNr, byteStart, 4, buf)
         If State = 0 Then
-            GetDInteger = daveConection.getS32
+            GetDInteger = daveConection.getS32()
         End If
     End Function
 
@@ -314,6 +353,8 @@ error_PLC:
             GetString = wert
         End If
     End Function
+
+
 
     ''' <summary>
     ''' Reads a Float from DB.

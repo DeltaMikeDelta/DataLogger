@@ -12,6 +12,9 @@ Public Class DataLogger_Main
     ' Private ConTable As DataTable
     Private ConfigsetName As String = "ConfigurationSet"
 
+    Private Bytes() As Byte
+    Private User As String
+
     'Private BGWCollection As Collection
 
     Public Property Init_Path As String
@@ -215,6 +218,9 @@ Public Class DataLogger_Main
 
                 If Not GetWatchDogBit(My.Settings.WD_DB, My.Settings.WD_Byte, My.Settings.WD_Bit) Then
                     Panel3.BackColor = Color.Green
+                    Bytes = GetBytes(2000, 0, 16)
+                    User = StringFromBuffer(4, 12)
+                    Dim Absaug As Boolean = BitFromBuffer(0, 2, 16, True)
                     'StatusBox.Text = " Watchdog Status: " & GetWatchDogBit(My.Settings.WD_DB, My.Settings.WD_Byte, My.Settings.WD_Bit).ToString
 
                     'If checkFile(Path) Then
@@ -226,7 +232,10 @@ Public Class DataLogger_Main
                     'Else
                     '    write_data(Path, Now.ToUniversalTime.ToString & " ; Ein Eintrag")
                     'End If
-                    Log_Absaugleistung(StatusBox, Path, AktLog)
+                    If Absaug Then
+                        Log_Absaugleistung(StatusBox, Path, AktLog, User, Absaug)
+                    End If
+
 
                 Else
                     Panel3.BackColor = Color.HotPink
